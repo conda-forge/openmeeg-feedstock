@@ -27,7 +27,8 @@ requirements:
 
   host:
     - python
-    - numpy
+    - numpy  # [not win]
+    - numpy 1.14  # [win]
     - blas 1.1 {{ variant }}
     - openblas
     - swig
