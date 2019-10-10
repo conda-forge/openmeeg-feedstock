@@ -23,8 +23,7 @@ requirements:
     - {{ compiler('cxx') }}
 
   host:
-    - libblas
-    - libcblas
+    - openblas
     - python
     - numpy  # [not win]
     - numpy 1.14  # [win]
@@ -34,6 +33,8 @@ requirements:
     - libmatio
 
   run:
+    - libblas * *openblas
+    - openblas
     - python
     - {{ pin_compatible('numpy') }}
     - hdf5
