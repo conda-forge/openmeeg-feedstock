@@ -4,6 +4,7 @@ BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 cmake $SRC_DIR                          \
+      -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON  \
       -DBLA_VENDOR:STRING=OpenBLAS      \
       -DENABLE_PYTHON:BOOL=ON           \
       -DCMAKE_BUILD_TYPE:STRING=RELEASE \
