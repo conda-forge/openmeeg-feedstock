@@ -23,24 +23,22 @@ requirements:
     - {{ compiler('cxx') }}
 
   host:
-    - openblas
     - python
-    - numpy  # [not win]
-    - numpy 1.14  # [win]
+    - numpy
     - swig
     - hdf5
     - zlib
     - libmatio
+    - libcblas
+    - liblapacke
 
   run:
-    - libblas * *openblas
-    - openblas
     - python
     - {{ pin_compatible('numpy') }}
     - hdf5
     - zlib
     - libmatio
-    - openmp 4.0.*  # [osx]
+    - llvm-openmp 4.0.*  # [osx]
 
 test:
   imports:
