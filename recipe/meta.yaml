@@ -11,7 +11,7 @@ source:
   url: https://github.com/openmeeg/openmeeg/archive/{{ version }}.tar.gz
   sha256: da841b7ceac7e454affbb441a122077388de439e72b3c93c46064a64f6b1d10a
   patches:
-    - overwrite_opnmeegpy_installation_path_win.patch  # [win]
+    # - overwrite_opnmeegpy_installation_path_win.patch  # [win]
     - remove_openmp.patch # [osx]
 
 build:
