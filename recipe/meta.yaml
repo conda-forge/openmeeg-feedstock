@@ -13,6 +13,7 @@ source:
   patches:
     # - overwrite_opnmeegpy_installation_path_win.patch  # [win]
     - remove_openmp.patch # [osx]
+    - fix_python_mac.patch # [osx]
 
 build:
   number: {{ build_number }}
