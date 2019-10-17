@@ -8,6 +8,7 @@ echo library_dirs = %LIBRARY_LIB%
 echo include_dirs = %LIBRARY_INC%
 
 cmake -G "NMake Makefiles"                           ^
+      -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"         ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG%       ^
       -DBLA_VENDOR:STRING=OpenBLAS                   ^
       -DENABLE_PYTHON:BOOL=ON                        ^
@@ -15,7 +16,6 @@ cmake -G "NMake Makefiles"                           ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DVCOMP_WORKAROUND=OFF                         ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
-      -DOpenBLAS_LIB="%LIBRARY_PREFIX%/lib/libcblas%SHLIB_EXT%" ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
