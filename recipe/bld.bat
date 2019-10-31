@@ -13,7 +13,7 @@ dir %LIBRARY_PREFIX%
 dir %LIBRARY_PREFIX%\lib\
 
 where python
-
+set "LIB=%LIB%;%PREFIX%"
 
 cmake -G "NMake Makefiles"                           ^
       -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"         ^
