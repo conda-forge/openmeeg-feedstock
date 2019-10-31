@@ -4,13 +4,13 @@ mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
 
-echo prefix = %PREFIX%
-echo library_dirs = %LIBRARY_LIB%
-echo include_dirs = %LIBRARY_INC%
-echo library_prefix = %LIBRARY_PREFIX%
+REM echo prefix = %PREFIX%
+REM echo library_dirs = %LIBRARY_LIB%
+REM echo include_dirs = %LIBRARY_INC%
+REM echo library_prefix = %LIBRARY_PREFIX%
 
-dir %LIBRARY_PREFIX%
-dir %LIBRARY_PREFIX%\lib\
+REM dir %LIBRARY_PREFIX%
+REM dir %LIBRARY_PREFIX%\lib\
 
 cmake -G "NMake Makefiles"                           ^
       -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"         ^
@@ -20,7 +20,7 @@ cmake -G "NMake Makefiles"                           ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DVCOMP_WORKAROUND=OFF                         ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
-      -DOpenBLAS_LIB="%LIBRARY_PREFIX%\lib\" ^
+      -DOpenBLAS_LIB="%LIBRARY_PREFIX%\lib\blas.lib" ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
