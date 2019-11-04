@@ -3,15 +3,11 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- toolchain_cxx
-docker_image:
-- condaforge/linux-anvil
+- vs2015
 libmatio:
 - '1.5'
-numpy:
-- '1.9'
 openblas:
-- 0.2.20
+- 0.3.6
 pin_run_as_build:
   libmatio:
     max_pin: x.x
@@ -20,9 +16,17 @@ pin_run_as_build:
   python:
     min_pin: x.x
     max_pin: x.x
+  vc:
+    max_pin: x
   zlib:
     max_pin: x.x
 python:
-- '3.5'
+- '3.8'
+vc:
+- '14'
+zip_keys:
+- - python
+  - vc
+  - cxx_compiler
 zlib:
 - '1.2'
