@@ -1,0 +1,24 @@
+diff --git a/OpenMEEG/CMakeLists.txt b/OpenMEEG/CMakeLists.txt
+index f8677289..cde14a22 100644
+--- a/OpenMEEG/CMakeLists.txt
++++ b/OpenMEEG/CMakeLists.txt
+@@ -25,12 +25,13 @@ if(VTK_FOUND)
+ endif()
+ 
+ # OpenMP
+-if (OPENMP_FOUND)
+-    target_compile_definitions(OpenMEEG PUBLIC USE_OMP)
+-    target_link_libraries(OpenMEEG PUBLIC OpenMP::OpenMP_CXX)
+-else()
+-    message("OpenMP library not found. Use a compiler with OpenMP support for optimized running time." )
+-endif()
++# if (OPENMP_FOUND)
++#     target_compile_definitions(OpenMEEG PUBLIC USE_OMP)
++#     target_link_libraries(OpenMEEG PUBLIC OpenMP::OpenMP_CXX)
++# else()
++#     message("OpenMP library not found. Use a compiler with OpenMP support for optimized running time." )
++# endif()
++message("OpenMP library not found. Use a compiler with OpenMP support for optimized running time." )
+ 
+ # Progress bar
+ option(USE_PROGRESSBAR "Use progressar to display computation progress" ON)

@@ -1,0 +1,23 @@
+diff --git a/wrapping/src/CMakeLists.txt b/wrapping/src/CMakeLists.txt
+index 1be66348..e8ddfc8b 100644
+--- a/wrapping/src/CMakeLists.txt
++++ b/wrapping/src/CMakeLists.txt
+@@ -56,7 +56,8 @@ endif()
+ list(APPEND CMAKE_SWIG_FLAGS -v -O)
+ set_source_files_properties(openmeeg.i PROPERTIES CPLUSPLUS ON)
+ swig_add_library(openmeeg LANGUAGE python SOURCES openmeeg.i)
+-swig_link_libraries(openmeeg ${PYTHON_LIBRARIES} OpenMEEG::OpenMEEG)
++swig_link_libraries(openmeeg OpenMEEG::OpenMEEG)
++# swig_link_libraries(openmeeg ${PYTHON_LIBRARIES} OpenMEEG::OpenMEEG)
+ 
+ execute_process(COMMAND ${PYTHON_EXECUTABLE} "-c" "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
+                 OUTPUT_VARIABLE PYTHON_SITE_ARCH
+@@ -69,6 +70,8 @@ install(TARGETS  "_openmeeg"
+         RUNTIME DESTINATION ${PYTHON_REL_SITE_ARCH}
+         PERMISSIONS OWNER_WRITE OWNER_READ GROUP_READ WORLD_READ)
+ 
++set_target_properties(_openmeeg PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")
++
+ install(FILES  ${OpenMEEG_BINARY_DIR}/wrapping/src/openmeeg.py
+         DESTINATION ${PYTHON_REL_SITE_ARCH}
+         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)

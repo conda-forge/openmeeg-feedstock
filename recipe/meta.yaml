@@ -1,7 +1,6 @@
-{% set version = "2.4.1" %}
+{% set version = "2.4.2" %}
 {% set build_number = 0 %}
 
-{% set variant = "openblas" %}
 {% set build_number = build_number + 200 %}
 
 package:
@@ -10,15 +9,15 @@ package:
 
 source:
   url: https://github.com/openmeeg/openmeeg/archive/{{ version }}.tar.gz
-  sha256: bcc6782b7aa3a5d36ec1b4c18544083cb93541d63dd098b6686098774974f571
+  sha256: da841b7ceac7e454affbb441a122077388de439e72b3c93c46064a64f6b1d10a
   patches:
-    - overwrite_opnmeegpy_installation_path_win.patch  # [win]
+    # - overwrite_opnmeegpy_installation_path_win.patch  # [win]
+    - remove_openmp.patch # [osx]
+    - fix_python_mac.patch # [osx]
 
 build:
   number: {{ build_number }}
   skip: true  # [win and vc<14]
-  features:
-    - blas_{{ variant }}
 
 requirements:
   build:
@@ -27,24 +26,21 @@ requirements:
 
   host:
     - python
-    - numpy  # [not win]
-    - numpy 1.14  # [win]
-    - blas 1.1 {{ variant }}
-    - openblas
+    - numpy
     - swig
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5
     - zlib
     - libmatio
+    - libcblas
+    - liblapacke
 
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - blas 1.1 {{ variant }}
-    - openblas
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5
     - zlib
     - libmatio
-    - openmp 4.0.*  # [osx]
+    - llvm-openmp 4.0.*  # [osx]
 
 test:
   imports:

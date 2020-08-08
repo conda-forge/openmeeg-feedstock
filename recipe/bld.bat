@@ -3,14 +3,28 @@ set CMAKE_CONFIG=Release
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
+
+echo prefix = %PREFIX%
+echo library_dirs = %LIBRARY_LIB%
+echo include_dirs = %LIBRARY_INC%
+echo library_prefix = %LIBRARY_PREFIX%
+
+dir %LIBRARY_PREFIX%
+dir %LIBRARY_PREFIX%\lib\
+
+where python
+set "LIB=%LIB%;%PREFIX%"
+
 cmake -G "NMake Makefiles"                           ^
+      -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"         ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG%       ^
-      -DBLA_VENDOR:STRING=OpenBLAS                   ^
       -DENABLE_PYTHON:BOOL=ON                        ^
+      -DPYTHON_VERSION=3                             ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DVCOMP_WORKAROUND=OFF                         ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
+      -DOpenBLAS_LIB="%LIBRARY_PREFIX%\lib\blas.lib;%LIBRARY_PREFIX%\lib\cblas.lib;%LIBRARY_PREFIX%\lib\lapack.lib;%LIBRARY_PREFIX%\lib\lapacke.lib" ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
