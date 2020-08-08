@@ -6,6 +6,8 @@ channel_targets:
 - conda-forge main
 cxx_compiler:
 - clangxx
+cxx_compiler_version:
+- '9'
 libmatio:
 - '1.5'
 macos_machine:
@@ -13,9 +15,9 @@ macos_machine:
 macos_min_version:
 - '10.9'
 numpy:
-- '1.9'
+- '1.14'
 openblas:
-- 0.2.20
+- 0.3.6
 pin_run_as_build:
   libmatio:
     max_pin: x.x
@@ -27,6 +29,6 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- '3.5'
+- '3.7'
 zlib:
 - '1.2'
