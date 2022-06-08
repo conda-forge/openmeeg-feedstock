@@ -33,8 +33,6 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke
-    - openblas   # [not win]
-    - mkl        # [win]
     - swig
     - hdf5
     - zlib
@@ -43,8 +41,6 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libblas * *{{ blas_impl }}
-    - {{ blas_impl }}
     - hdf5
     - zlib
     - libmatio
