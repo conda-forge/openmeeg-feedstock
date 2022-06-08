@@ -24,6 +24,7 @@ requirements:
     - swig                                   # [build_platform != target_platform]
     - cmake >=3.8
     - make
+    - ninja
     - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
