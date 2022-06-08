@@ -6,6 +6,14 @@ cxx_compiler:
 - vs2017
 hdf5:
 - 1.12.1
+libblas:
+- 3.9 *netlib
+libcblas:
+- 3.9 *netlib
+liblapack:
+- 3.9 *netlib
+liblapacke:
+- 3.9 *netlib
 libmatio:
 - 1.5.21
 numpy:
