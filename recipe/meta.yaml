@@ -52,6 +52,8 @@ requirements:
 test:
   imports:
     - openmeeg
+  commands:
+    - python -c "import openmeeg; assert openmeeg.sqr(4) == 16"
 
 about:
   home: https://openmeeg.github.io/
