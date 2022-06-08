@@ -3,6 +3,7 @@
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
+echo "Running CMAKE"
 cmake $SRC_DIR                          \
       -DBLA_VENDOR:STRING=OpenBLAS      \
       -DENABLE_PYTHON:BOOL=ON           \
