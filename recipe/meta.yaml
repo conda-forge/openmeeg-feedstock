@@ -41,6 +41,10 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
     - hdf5
     - zlib
     - libmatio
