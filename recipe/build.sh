@@ -9,7 +9,7 @@ cmake $SRC_DIR                          \
       -DCMAKE_BUILD_TYPE:STRING=RELEASE \
       -DBUILD_DOCUMENTATION:BOOL=OFF    \
       -DCMAKE_INSTALL_PREFIX=$PREFIX    \
-      -DUseSWIG_TARGET_NAME_PREFERENCE=OLD \
+      -DUseSWIG_TARGET_NAME_PREFERENCE=LEGACY \
       -DCMAKE_INSTALL_LIBDIR=lib
 
 cmake --build . --target install --config RELEASE
