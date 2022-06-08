@@ -21,6 +21,8 @@ requirements:
     - cmake >=3.8
     - make
     - {{ compiler('cxx') }}
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux]
 
   host:
     - python
@@ -42,7 +44,6 @@ requirements:
     - hdf5
     - zlib
     - libmatio
-    - openmp  # [osx]
 
 test:
   imports:
