@@ -1,5 +1,4 @@
 {% set version = "2.4.1" %}
-{% set variant = "openblas" %}
 
 package:
   name: openmeeg
@@ -13,8 +12,6 @@ source:
 
 build:
   number: 201
-  features:
-    - blas_{{ variant }}
 
 requirements:
   build:
@@ -28,7 +25,9 @@ requirements:
   host:
     - python
     - numpy
-    - blas 1.1 {{ variant }}
+    - libblas
+    - libcblas
+    - liblapack
     - openblas
     - swig
     - hdf5
@@ -38,7 +37,7 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - blas 1.1 {{ variant }}
+    - libblas * *openblas
     - openblas
     - hdf5
     - zlib

@@ -4,11 +4,10 @@ mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
 cmake -G "NMake Makefiles"                           ^
-      %CMAKE_ARGS%                                   ^
-      -DPython3_EXECUTABLE=%PYTHON%                  ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG%       ^
       -DBLA_VENDOR:STRING=OpenBLAS                   ^
       -DENABLE_PYTHON:BOOL=ON                        ^
+      -DPython3_EXECUTABLE=%PYTHON%                  ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DVCOMP_WORKAROUND=OFF                         ^
