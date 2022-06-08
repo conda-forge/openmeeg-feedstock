@@ -11,6 +11,7 @@ cmake -G "NMake Makefiles"                           ^
       -DENABLE_PYTHON:BOOL=ON                        ^
       -DPython3_EXECUTABLE=%PYTHON%                  ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
+      -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%"    ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DVCOMP_WORKAROUND=OFF                         ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
