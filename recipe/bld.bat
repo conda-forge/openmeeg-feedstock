@@ -5,6 +5,7 @@ pushd build_%CMAKE_CONFIG%
 
 cmake -G "NMake Makefiles"                           ^
       %CMAKE_ARGS%                                   ^
+      -DPython3_EXECUTABLE=%PYTHON%                  ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG%       ^
       -DBLA_VENDOR:STRING=OpenBLAS                   ^
       -DENABLE_PYTHON:BOOL=ON                        ^

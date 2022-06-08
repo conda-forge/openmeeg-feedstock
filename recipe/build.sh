@@ -6,6 +6,7 @@ mkdir -p $BUILD_DIR && cd $BUILD_DIR
 echo "Running CMAKE"
 cmake ${CMAKE_ARGS} \
       $SRC_DIR                          \
+      -DPython3_EXECUTABLE="$PYTHON"    \
       -DBLA_VENDOR:STRING=OpenBLAS      \
       -DENABLE_PYTHON:BOOL=ON           \
       -DCMAKE_BUILD_TYPE:STRING=RELEASE \
