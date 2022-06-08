@@ -29,9 +29,8 @@ requirements:
   host:
     - python
     - numpy
-    - openblas  # [not win]
-    - mkl  # [win]
     - pthread-stubs  # [win]
+    - openblas
     - libblas
     - libcblas
     - liblapack
@@ -44,8 +43,8 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - openblas  # [not win]
-    - mkl  # [win]
+    - libblas * *openblas
+    - openblas
     - hdf5
     - zlib
     - libmatio
