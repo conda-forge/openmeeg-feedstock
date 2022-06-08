@@ -1,5 +1,4 @@
 {% set version = "2.4.1" %}
-
 {% set variant = "openblas" %}
 
 package:
@@ -14,7 +13,6 @@ source:
 
 build:
   number: 201
-  skip: true  # [win and vc<14]
   features:
     - blas_{{ variant }}
 
@@ -52,7 +50,7 @@ test:
     - openmeeg
 
 about:
-  home: http://openmeeg.github.io/
+  home: https://openmeeg.github.io/
   license: CeCILL-B
   license_file: LICENSE.txt
   summary: >

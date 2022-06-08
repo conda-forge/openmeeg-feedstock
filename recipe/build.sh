@@ -4,7 +4,8 @@ BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 echo "Running CMAKE"
-cmake $SRC_DIR                          \
+cmake ${CMAKE_ARGS} \
+      $SRC_DIR                          \
       -DBLA_VENDOR:STRING=OpenBLAS      \
       -DENABLE_PYTHON:BOOL=ON           \
       -DCMAKE_BUILD_TYPE:STRING=RELEASE \

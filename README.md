@@ -1,7 +1,7 @@
 About openmeeg
 ==============
 
-Home: http://openmeeg.github.io/
+Home: https://openmeeg.github.io/
 
 Package license: CeCILL-B
 
