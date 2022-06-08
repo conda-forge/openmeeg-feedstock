@@ -24,6 +24,8 @@ libmatio:
 - 1.5.21
 numpy:
 - '1.21'
+openblas:
+- 0.3.*
 pin_run_as_build:
   python:
     min_pin: x.x

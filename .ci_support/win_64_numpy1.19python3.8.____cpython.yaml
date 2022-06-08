@@ -16,6 +16,8 @@ liblapacke:
 - 3.9 *netlib
 libmatio:
 - 1.5.21
+mkl:
+- '2022'
 numpy:
 - '1.19'
 pin_run_as_build:
