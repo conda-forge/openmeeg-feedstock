@@ -14,6 +14,7 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: 201
+  skip: true  # [win and vc<14]
 
 requirements:
   build:
