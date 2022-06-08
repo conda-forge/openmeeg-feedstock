@@ -22,8 +22,8 @@ build:
 
 requirements:
   build:
-    # This pin to < 3.13 is only necessary because of `cmake --help-policy CMP0078`
-    - cmake >=3.8, <3.13
+    # This pin to <= 3.22.0 is only necessary because of `cmake --help-policy CMP0078`
+    - cmake >=3.8, <=3.22.0
     - make
     - {{ compiler('cxx') }}
 
