@@ -11,6 +11,7 @@ source:
   # patches:
   #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
+# https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: 201
 
@@ -32,7 +33,8 @@ requirements:
     - libcblas
     - liblapack
     - liblapacke
-    - openblas
+    - openblas   # [not win]
+    - mkl        # [win]
     - swig
     - hdf5
     - zlib
@@ -41,8 +43,8 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libblas * *openblas
-    - openblas
+    - libblas * *{{ blas_impl }}
+    - {{ blas_impl }}
     - hdf5
     - zlib
     - libmatio
