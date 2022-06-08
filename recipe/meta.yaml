@@ -9,8 +9,8 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/openmeeg/openmeeg/archive/{{ version }}.tar.gz
-  sha256: bcc6782b7aa3a5d36ec1b4c18544083cb93541d63dd098b6686098774974f571
+  url: https://github.com/openmeeg/openmeeg/archive/865ce622e8a6afd7a4ce8884a9d3e6f8d4f92ac6.tar.gz
+  sha256: fa83f8f6777d26afc3306a7f4c8226376d2682c0e9f83de26a55cb7b6f8f4f6e
   patches:
     - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
