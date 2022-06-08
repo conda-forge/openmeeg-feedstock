@@ -13,8 +13,8 @@ cmake -G Ninja                                       ^
       -DCMAKE_INSTALL_PREFIX:PATH="%LIBRARY_PREFIX%" ^
       -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%"    ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
-      -DVCOMP_WORKAROUND=OFF                         ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
+      -DBUILD_SHARED_LIBS:BOOL=ON                    ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
