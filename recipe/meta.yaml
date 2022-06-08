@@ -1,8 +1,6 @@
 {% set version = "2.4.1" %}
-{% set build_number = 1 %}
 
 {% set variant = "openblas" %}
-{% set build_number = build_number + 200 %}
 
 package:
   name: openmeeg
@@ -11,17 +9,20 @@ package:
 source:
   url: https://github.com/openmeeg/openmeeg/archive/865ce622e8a6afd7a4ce8884a9d3e6f8d4f92ac6.tar.gz
   sha256: fa83f8f6777d26afc3306a7f4c8226376d2682c0e9f83de26a55cb7b6f8f4f6e
-  patches:
-    - overwrite_opnmeegpy_installation_path_win.patch  # [win]
+  # patches:
+  #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
 build:
-  number: {{ build_number }}
+  number: 201
   skip: true  # [win and vc<14]
   features:
     - blas_{{ variant }}
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
     - cmake >=3.8
     - make
     - {{ compiler('cxx') }}
