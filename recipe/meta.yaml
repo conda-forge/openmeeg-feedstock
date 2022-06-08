@@ -6,8 +6,8 @@ package:
 
 source:
   # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
-  url: https://github.com/larsoner/openmeeg/archive/9adffcadfbaa71a4676dbccd827bdb7cf72505bc.tar.gz
-  sha256: 526ddb0b9dfc060e8b045a0d909888df94f2b7ce0df4f03b7b11f9c27df4fccc
+  url: https://github.com/larsoner/openmeeg/archive/fb5fbe7c31b87c7cf572df4659fbbb17c19f1841.tar.gz
+  sha256: 722a168780dcb7fddcbd4465d6efbed6fa5d87a19ab55c1cc54cdaad4bcd0937
   # patches:
   #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
