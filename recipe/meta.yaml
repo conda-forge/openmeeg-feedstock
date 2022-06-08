@@ -31,6 +31,7 @@ requirements:
     - numpy
     - openblas  # [not win]
     - mkl  # [win]
+    - pthread-stubs  # [win]
     - libblas
     - libcblas
     - liblapack
@@ -57,7 +58,7 @@ test:
 
 about:
   home: https://openmeeg.github.io/
-  license: CeCILL-B
+  license: CECILL-B
   license_file: LICENSE.txt
   summary: >
            A C++ package for solving the forward problems of

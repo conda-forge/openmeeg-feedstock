@@ -3,7 +3,7 @@ About openmeeg
 
 Home: https://openmeeg.github.io/
 
-Package license: CeCILL-B
+Package license: CECILL-B
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/openmeeg-feedstock/blob/main/LICENSE.txt)
 
