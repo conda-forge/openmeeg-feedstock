@@ -5,6 +5,7 @@ mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 echo "Running CMAKE"
 cmake -GNinja                           \
+      ${CMAKE_ARGS}                     \
       -DBLA_VENDOR:STRING=OpenBLAS      \
       -DENABLE_PYTHON:BOOL=ON           \
       -DPython3_EXECUTABLE="$PYTHON"    \
