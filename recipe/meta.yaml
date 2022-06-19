@@ -6,15 +6,17 @@ package:
 
 source:
   # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
-  url: https://github.com/larsoner/openmeeg/archive/fb5fbe7c31b87c7cf572df4659fbbb17c19f1841.tar.gz
-  sha256: 722a168780dcb7fddcbd4465d6efbed6fa5d87a19ab55c1cc54cdaad4bcd0937
+  url: https://github.com/larsoner/openmeeg/archive/9fd7d654883749e8c6b2cc6225ace8428ec47438.tar.gz
+  sha256: 0764b1650e0a5db44667f59087ea2bb70bb2ef3374bfa48258a41c70f19e4465
   # patches:
   #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: 201
-  skip: true  # [win and vc<14]
+  # For now, skip Windows entirely. We can reenable it after we fix things
+  # on OpenMEEG's CIs
+  skip: true  # [win]
 
 requirements:
   build:
