@@ -1,12 +1,13 @@
+{% set name = "openmeeg" %}
 {% set version = "2.4.2" %}
 
 package:
-  name: openmeeg
+  name: {{ name }}
   version: {{ version }}
 
 source:
   # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
-  url: https://github.com/openmeeg/openmeeg/archive/{{ version }}.tar.gz
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
   sha256: 5c35489c6f8662b706fb989d7f8ef157e07528e9f04f9d741b81437f80362c50
   # patches:
   #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
