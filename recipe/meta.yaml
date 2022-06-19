@@ -1,58 +1,69 @@
-{% set version = "2.4.1" %}
-{% set build_number = 0 %}
-
-{% set variant = "openblas" %}
-{% set build_number = build_number + 200 %}
+{% set name = "openmeeg" %}
+{% set version = "2.4.2" %}
 
 package:
-  name: openmeeg
+  name: {{ name }}
   version: {{ version }}
 
 source:
-  url: https://github.com/openmeeg/openmeeg/archive/{{ version }}.tar.gz
-  sha256: bcc6782b7aa3a5d36ec1b4c18544083cb93541d63dd098b6686098774974f571
-  patches:
-    - overwrite_opnmeegpy_installation_path_win.patch  # [win]
+  # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 5c35489c6f8662b706fb989d7f8ef157e07528e9f04f9d741b81437f80362c50
+  # patches:
+  #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
 
+# https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: {{ build_number }}
-  skip: true  # [win and vc<14]
-  features:
-    - blas_{{ variant }}
+  number: 0
+  # For now, skip Windows entirely. We can reenable it after we fix things
+  # on OpenMEEG's CIs
+  skip: true  # [win]
 
 requirements:
   build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - numpy                                  # [build_platform != target_platform]
+    - swig                                   # [build_platform != target_platform]
     - cmake >=3.8
+    - make
+    - ninja
     - {{ compiler('cxx') }}
+    - llvm-openmp  # [osx]
+    - libgomp      # [linux]
 
   host:
     - python
-    - numpy  # [not win]
-    - numpy 1.14  # [win]
-    - blas 1.1 {{ variant }}
+    - numpy
+    - pthread-stubs  # [win]
     - openblas
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
     - swig
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5
     - zlib
     - libmatio
 
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - blas 1.1 {{ variant }}
+    - libblas * *openblas
     - openblas
-    - hdf5 1.8.18|1.8.18.*
+    - hdf5
     - zlib
     - libmatio
-    - openmp 4.0.*  # [osx]
 
 test:
   imports:
     - openmeeg
+  commands:
+    - python -c "import openmeeg; assert openmeeg.sqr(4) == 16"
 
 about:
-  home: http://openmeeg.github.io/
-  license: CeCILL-B
+  home: https://openmeeg.github.io/
+  license: CECILL-B
   license_file: LICENSE.txt
   summary: >
            A C++ package for solving the forward problems of
@@ -62,3 +73,4 @@ extra:
   recipe-maintainers:
     - massich
     - agramfort
+    - larsoner
