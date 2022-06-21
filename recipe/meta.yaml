@@ -33,7 +33,8 @@ requirements:
     - python
     - numpy
     - pthread-stubs  # [win]
-    - openblas
+    - openblas   # [not win]
+    - mkl        # [win]
     - libblas
     - libcblas
     - liblapack
