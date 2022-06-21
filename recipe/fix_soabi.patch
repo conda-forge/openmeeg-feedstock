@@ -9,7 +9,7 @@ index 94dab89a..d892c1b0 100644
 +# For PyPy, see
 +# https://github.com/conda-forge/openmeeg-feedstock/pull/20#issuecomment-1161729565
 +if(UNIX)
-+    set_target_properties(openmeeg PROPERTIES SUFFIX "${Python_SOABI}")
++    set_target_properties(openmeeg PROPERTIES SUFFIX "${Python3_SOABI}")
 +endif()
 +
  if (APPLE)
