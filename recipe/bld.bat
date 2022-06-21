@@ -15,6 +15,7 @@ cmake -G Ninja                                       ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
       -DBUILD_SHARED_LIBS:BOOL=ON                    ^
+      -DCMAKE_CXX_FLAGS="/wd4275 /wd4101"            ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
