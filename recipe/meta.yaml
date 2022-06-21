@@ -16,11 +16,6 @@ source:
 build:
   number: 2
 
-c_compiler:    # [win]
-  - vs2019     # [win]
-cxx_compiler:  # [win]
-  - vs2019     # [win]
-
 requirements:
   build:
     - python                                 # [build_platform != target_platform]

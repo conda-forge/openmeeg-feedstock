@@ -1,4 +1,6 @@
-c_compiler:    # [osx]
+c_compiler:    # [osx or win]
   - clang      # [osx]
-cxx_compiler:  # [osx]
+  - vs2019     # [win]
+cxx_compiler:  # [osx or win]
   - clangxx    # [osx]
+  - vs2019     # [win]
