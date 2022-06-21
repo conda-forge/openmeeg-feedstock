@@ -1,13 +1,15 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
+cdt_name:
+- cos6
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- clangxx
+- gxx
 cxx_compiler_version:
-- '13'
+- '10'
+docker_image:
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 hdf5:
 - 1.12.1
 libblas:
@@ -20,10 +22,6 @@ liblapacke:
 - 3.9 *netlib
 libmatio:
 - 1.5.21
-llvm_openmp:
-- '13'
-macos_machine:
-- x86_64-apple-darwin13.4.0
 numpy:
 - '1.19'
 openblas:
@@ -35,11 +33,8 @@ pin_run_as_build:
   zlib:
     max_pin: x.x
 python:
-- 3.7.* *_cpython
+- 3.9.* *_cpython
 target_platform:
-- osx-64
-zip_keys:
-- - python
-  - numpy
+- linux-64
 zlib:
 - '1.2'

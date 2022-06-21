@@ -1,13 +1,9 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- clangxx
-cxx_compiler_version:
-- '13'
+- vs2017
 hdf5:
 - 1.12.1
 libblas:
@@ -20,12 +16,8 @@ liblapacke:
 - 3.9 *netlib
 libmatio:
 - 1.5.21
-llvm_openmp:
-- '13'
-macos_machine:
-- arm64-apple-darwin20.0.0
 numpy:
-- '1.21'
+- '1.19'
 openblas:
 - 0.3.*
 pin_run_as_build:
@@ -37,9 +29,6 @@ pin_run_as_build:
 python:
 - 3.10.* *_cpython
 target_platform:
-- osx-arm64
-zip_keys:
-- - python
-  - numpy
+- win-64
 zlib:
 - '1.2'
