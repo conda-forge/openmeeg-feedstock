@@ -3,7 +3,7 @@
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
-SOABI=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX')[1:-3])")
+EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
 
 echo "Running CMAKE"
 cmake -GNinja                           \
@@ -16,7 +16,7 @@ cmake -GNinja                           \
       -DCMAKE_INSTALL_PREFIX=$PREFIX    \
       -DCMAKE_INSTALL_LIBDIR=lib        \
       -DBUILD_SHARED_LIBS=ON            \
-      -DPython3_SOABI=$SOABI            \
+      -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
       $SRC_DIR
 
 cmake --build . --target install --config RELEASE
