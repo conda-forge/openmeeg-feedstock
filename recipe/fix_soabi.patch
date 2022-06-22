@@ -2,15 +2,21 @@ diff --git a/wrapping/src/CMakeLists.txt b/wrapping/src/CMakeLists.txt
 index 94dab89a..d892c1b0 100644
 --- a/wrapping/src/CMakeLists.txt
 +++ b/wrapping/src/CMakeLists.txt
-@@ -51,6 +51,12 @@ set(SWIG_MODULE_openmeeg_EXTRA_DEPS numpy.i make_geometry.py ${SWIG_MODULE_openm
+@@ -51,6 +51,18 @@ set(SWIG_MODULE_openmeeg_EXTRA_DEPS numpy.i make_geometry.py ${SWIG_MODULE_openm
  set_source_files_properties(openmeeg.i PROPERTIES CPLUSPLUS ON GENERATED_COMPILE_DEFINITIONS SWIG_PYTHON_SILENT_MEMLEAK)
  swig_add_library(openmeeg LANGUAGE python SOURCES openmeeg.i)
  
 +# For PyPy, see
 +# https://github.com/conda-forge/openmeeg-feedstock/pull/20#issuecomment-1161729565
-+if(UNIX)
-+    set_target_properties(openmeeg PROPERTIES SUFFIX ".${Python3_SOABI}.so")
++if(NOT Python3_EXT_SUFFIX)
++    if(UNIX)
++        set(Python3_EXT_SUFFIX ".${Python3_SOABI}.so")
++    else()
++        set(Python3_EXT_SUFFIX ".${Python3_SOABI}.pyd")
++    endif()
 +endif()
++
++set_target_properties(openmeeg PROPERTIES SUFFIX "${Python3_EXT_SUFFIX}")
 +
  if (APPLE)
      swig_link_libraries(openmeeg OpenMEEG::OpenMEEG)
