@@ -15,7 +15,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 2
+  number: 3
   # For now, skip Windows entirely. We can reenable it after we fix things
   # on OpenMEEG's CIs
   skip: true  # [win]
