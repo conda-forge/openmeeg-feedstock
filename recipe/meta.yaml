@@ -15,7 +15,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 3
+  number: 4
   # For now, skip Windows entirely. We can reenable it after we fix things
   # on OpenMEEG's CIs
   skip: true  # [win]
@@ -25,34 +25,29 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-    - swig                                   # [build_platform != target_platform]
     - cmake >=3.8
     - make
     - ninja
     - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
+    - pthread-stubs  # [win]
+    - swig
 
   host:
     - python
     - numpy
-    - pthread-stubs  # [win]
+    - hdf5  # [win]
+    - hdf5-static  # [not win]
     - openblas
-    - libblas
-    - libcblas
-    - liblapack
-    - liblapacke
-    - swig
-    - hdf5
+    - libgfortran
     - zlib
     - libmatio
 
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libblas * *openblas
-    - openblas
-    - hdf5
+    - libgfortran
     - zlib
     - libmatio
 

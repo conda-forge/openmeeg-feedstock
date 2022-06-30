@@ -16,7 +16,10 @@ cmake -GNinja                           \
       -DCMAKE_INSTALL_PREFIX=$PREFIX    \
       -DCMAKE_INSTALL_LIBDIR=lib        \
       -DBUILD_SHARED_LIBS=ON            \
+      -DBLA_STATIC=ON                   \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
+      -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
+      -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
 
 cmake --build . --target install --config RELEASE
