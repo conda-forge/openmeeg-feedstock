@@ -37,6 +37,7 @@ requirements:
     - python
     - numpy
     - pthread-stubs  # [win]
+    - hdf5-static  # [not win]
     - openblas
     - libblas
     - libcblas
