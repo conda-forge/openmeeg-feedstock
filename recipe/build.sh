@@ -19,6 +19,7 @@ cmake -GNinja                           \
       -DBLA_STATIC=ON                   \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
       -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
+      -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
 
 cmake --build . --target install --config RELEASE

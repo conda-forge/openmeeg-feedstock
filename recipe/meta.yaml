@@ -39,6 +39,7 @@ requirements:
     - pthread-stubs  # [win]
     - hdf5-static  # [not win]
     - openblas
+    - libgfortran
     - libblas
     - libcblas
     - liblapack
@@ -54,6 +55,7 @@ requirements:
     - hdf5
     - zlib
     - libmatio
+    - libgfortran
 
 test:
   imports:
