@@ -16,6 +16,7 @@ cmake -GNinja                           \
       -DCMAKE_INSTALL_PREFIX=$PREFIX    \
       -DCMAKE_INSTALL_LIBDIR=lib        \
       -DBUILD_SHARED_LIBS=ON            \
+      -DBLA_STATIC=ON                   \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
       $SRC_DIR
 

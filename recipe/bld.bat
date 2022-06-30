@@ -15,6 +15,7 @@ cmake -G Ninja                                       ^
       -DBUILD_DOCUMENTATION:BOOL=OFF                 ^
       -DENABLE_PACKAGING:BOOL=OFF                    ^
       -DBUILD_SHARED_LIBS:BOOL=ON                    ^
+      -DBLA_STATIC=ON                                ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 

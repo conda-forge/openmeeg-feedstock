@@ -15,7 +15,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 3
+  number: 4
   # For now, skip Windows entirely. We can reenable it after we fix things
   # on OpenMEEG's CIs
   skip: true  # [win]
@@ -50,8 +50,6 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libblas * *openblas
-    - openblas
     - hdf5
     - zlib
     - libmatio
