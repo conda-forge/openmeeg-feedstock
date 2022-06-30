@@ -18,7 +18,7 @@ cmake -GNinja                           \
       -DBUILD_SHARED_LIBS=ON            \
       -DBLA_STATIC=ON                   \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
-      -DCMAKE_PREFIX_PATH=$PREFIX/lib   \
+      -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
       $SRC_DIR
 
 cmake --build . --target install --config RELEASE
