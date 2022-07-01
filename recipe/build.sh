@@ -22,4 +22,6 @@ cmake -GNinja                           \
       -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
 
-cmake --build . --target install --config RELEASE
+cmake --build . --config RELEASE
+cd wrapping/python
+python setup.py install

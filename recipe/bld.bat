@@ -19,7 +19,13 @@ cmake -G Ninja                                       ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
-cmake --build . --target install --config %CMAKE_CONFIG%
+cmake --build . --config %CMAKE_CONFIG%
+if errorlevel 1 exit 1
+
+cd wrapping\python
+if errorlevel 1 exit 1
+
+python setup.py install
 if errorlevel 1 exit 1
 
 popd
