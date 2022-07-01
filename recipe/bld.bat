@@ -22,7 +22,7 @@ if errorlevel 1 exit rem 1
 cmake --build . --config %CMAKE_CONFIG%
 if errorlevel 1 exit 1
 
-python -m pip install ./wrapping/python -vv
+%PYTHON% -m pip install ./wrapping/python -vv
 if errorlevel 1 exit 1
 
 popd
