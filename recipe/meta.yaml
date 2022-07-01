@@ -40,7 +40,7 @@ requirements:
     - hdf5  # [win]
     - hdf5-static  # [not win]
     - openblas
-    - libgfortran
+    - libgfortran  # [not win]
     - zlib
     - libmatio
     - setuptools
