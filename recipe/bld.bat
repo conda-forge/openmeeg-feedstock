@@ -19,10 +19,23 @@ cmake -G Ninja                                       ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
-cmake --build . --target install --config %CMAKE_CONFIG%
+cmake --build . --config %CMAKE_CONFIG%
 if errorlevel 1 exit 1
 
-:: %PYTHON% -m pip install ./wrapping/python -vv
-:: if errorlevel 1 exit 1
+cd wrapping\python
+if errorlevel 1 exit 1
+%PYTHON% setup.py bdist_wheel
+if errorlevel 1 exit 1
+cd dist
+if errorlevel 1 exit 1
+for %%f in (.\*.whl$) do (
+    %PYTHON% -m delvewheel show %%f
+    if errorlevel 1 exit 1
+    %PYTHON% -m delvewheel repair -w %cd% %%f
+    if errorlevel 1 exit 1
+    %PYTHON% -m pip install -vv %%f
+    if errorlevel 1 exit 1
+)
+if errorlevel 1 exit 1
 
 popd

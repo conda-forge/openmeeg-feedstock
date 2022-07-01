@@ -15,6 +15,10 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: 0
+  script_env:
+   - OS=osx  # [osx]
+   - OS=linux  # [linux]
+   - OS=win  # [win]
 
 requirements:
   build:
@@ -41,6 +45,10 @@ requirements:
     - libmatio
     - setuptools
     - pip
+    - wheel
+    - delocate  # [osx]
+    - auditwheel  # [linux]
+    - delvewheel  # [win]
 
   run:
     - python

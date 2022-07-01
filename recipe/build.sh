@@ -22,6 +22,15 @@ cmake -GNinja                           \
       -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
 
-cmake --build . --target install --config RELEASE
+cmake --build . --config RELEASE
 
-# $PYTHON -m pip install ./wrapping/python -vv
+cd wrapping/python
+$PYTHON setup.py bdist_wheel
+cd dist
+if [[ "${OS}" == "osx" ]]; then
+    $PYTHON -c "import sys; from delocate.cmd.delocate_wheel import delocate_wheel; delocate_wheel(sys.argv[-1], lib_filt_func=lambda name: 'OpenMEEG' in name)" $PWD/*.whl
+else
+    $PYTHON -m auditwheel -v show $PWD/*.whl
+    $PYTHON -m auditwheel -v repair $PWD/*.whl
+fi
+$PYTHON -m pip install $PWD/*.whl
