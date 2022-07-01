@@ -24,4 +24,4 @@ cmake -GNinja                           \
 
 cmake --build . --config RELEASE
 
-python -m pip install ./wrapping/python -vv
+$PYTHON -m pip install ./wrapping/python -vv
