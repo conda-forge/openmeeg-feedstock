@@ -23,5 +23,5 @@ cmake -GNinja                           \
       $SRC_DIR
 
 cmake --build . --config RELEASE
-cd wrapping/python
-python setup.py install
+
+python -m pip install ./wrapping/python -vv
