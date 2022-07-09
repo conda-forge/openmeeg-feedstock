@@ -19,7 +19,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-    - cmake >=3.13
+    - cmake >=3.19
     - make
     - ninja  # [not win]
     - {{ compiler('cxx') }}
