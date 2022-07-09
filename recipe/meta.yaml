@@ -6,9 +6,10 @@ package:
   version: {{ version }}
 
 source:
-  # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
-  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 12105b1f29b41e76ca48280ae422ae8fc8f540c838f42186f46bd7d143a301d4
+  # url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  # sha256: 12105b1f29b41e76ca48280ae422ae8fc8f540c838f42186f46bd7d143a301d4
+  url: https://github.com/larsoner/openmeeg/archive/install.tar.gz
+  sha256: 9084ce287e8b37b8c5867d29f6c893255ea3a4e274df56ccd9241be921d166e6
   patches:
     - fix_soabi.patch
 
