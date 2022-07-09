@@ -33,8 +33,8 @@ requirements:
     - numpy
     - hdf5  # [win]
     - hdf5-static  # [not win]
-    - openblas
     - libgfortran  # [not win]
+    - openblas
     - zlib
     - libmatio
 
