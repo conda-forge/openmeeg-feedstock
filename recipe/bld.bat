@@ -11,7 +11,7 @@ SET EXT_SUFFIX=%%F
 )
 echo "%EXT_SUFFIX%"
 
-cmake -G "Visual Studio 15 2017"                     ^
+cmake -B .                                           ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG%       ^
       -DCMAKE_CXX_FLAGS=-I%LIBRARY_INC%\openblas     ^
       -DBLA_VENDOR:STRING=OpenBLAS                   ^
