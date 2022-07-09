@@ -17,6 +17,7 @@ cmake -GNinja                           \
       -DCMAKE_INSTALL_LIBDIR=lib        \
       -DBUILD_SHARED_LIBS=ON            \
       -DBLA_STATIC=ON                   \
+      -DPYTHON_INSTALL_RELATIVE=OFF     \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX  \
       -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
       -DCMAKE_CXX_FLAGS="-lgfortran"    \
