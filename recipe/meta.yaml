@@ -7,8 +7,8 @@ package:
 
 source:
   # url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  url: https://github.com/larsoner/openmeeg/archive/70e09f0b38216f29783474470b31ee0d49d6ee80.tar.gz
-  sha256: d25deea1fc11b72a6bbaf4b215b6d0ac2c831ac919b0a148cf52c29e1e2066f9
+  url: https://github.com/larsoner/openmeeg/archive/7c45809d90ffd8d92d1009cd14e524951ceb51b8.tar.gz
+  sha256: be633179a7c29991d8c4d59a02ff69c1b7579263564fc45273c5188ce77b3b18
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
