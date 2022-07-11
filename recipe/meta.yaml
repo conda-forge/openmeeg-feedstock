@@ -34,6 +34,7 @@ requirements:
     - hdf5  # [win]
     - hdf5-static  # [not win]
     - libgfortran  # [not win]
+    - libgfortran5  # [not win]
     - openblas
     - zlib
     - libmatio
@@ -43,6 +44,7 @@ requirements:
     - {{ pin_compatible('numpy') }}
     - libgfortran  # [not win]
     - ucrt  # [win]
+    - libopenblas  # [win]
     - zlib
     - libmatio
 
