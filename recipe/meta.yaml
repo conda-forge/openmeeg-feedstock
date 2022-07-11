@@ -42,6 +42,7 @@ requirements:
     - python
     - {{ pin_compatible('numpy') }}
     - libgfortran  # [not win]
+    - ucrt  # [win]
     - zlib
     - libmatio
 
