@@ -1,33 +1,26 @@
 {% set name = "openmeeg" %}
-{% set version = "2.4.2" %}
+{% set version = "2.4.4" %}
 
 package:
   name: {{ name }}
   version: {{ version }}
 
 source:
-  # TODO: PR and merge https://github.com/larsoner/openmeeg/commits/conda-forge
   url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 5c35489c6f8662b706fb989d7f8ef157e07528e9f04f9d741b81437f80362c50
-  patches:
-  #   - overwrite_opnmeegpy_installation_path_win.patch  # [win]
-    - fix_soabi.patch
+  sha256: 41463981c003c7830401febbf4a52d6a1a93141ee049b4942dab11182657af3d
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 4
-  # For now, skip Windows entirely. We can reenable it after we fix things
-  # on OpenMEEG's CIs
-  skip: true  # [win]
+  number: 0
 
 requirements:
   build:
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-    - cmake >=3.8
+    - cmake >=3.19
     - make
-    - ninja
+    - ninja  # [not win]
     - {{ compiler('cxx') }}
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
@@ -39,15 +32,18 @@ requirements:
     - numpy
     - hdf5  # [win]
     - hdf5-static  # [not win]
+    - libgfortran  # [not win]
+    - libgfortran5  # [not win]
     - openblas
-    - libgfortran
     - zlib
     - libmatio
 
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libgfortran
+    - libgfortran  # [not win]
+    - ucrt  # [win]
+    - libopenblas  # [win]
     - zlib
     - libmatio
 
