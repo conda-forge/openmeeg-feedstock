@@ -6,9 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  # url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  url: https://github.com/larsoner/openmeeg/archive/7c45809d90ffd8d92d1009cd14e524951ceb51b8.tar.gz
-  sha256: be633179a7c29991d8c4d59a02ff69c1b7579263564fc45273c5188ce77b3b18
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 41463981c003c7830401febbf4a52d6a1a93141ee049b4942dab11182657af3d
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
