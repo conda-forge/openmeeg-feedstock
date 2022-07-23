@@ -51,8 +51,11 @@ requirements:
 test:
   imports:
     - openmeeg
-  commands:
-    - ./build_tools/cibuildwheel_test_command.sh
+  requires:
+    - pytest
+  source_files:
+    - build_tools/cibuildwheel_test_command.sh
+    - openmeeg/data
 
 about:
   home: https://openmeeg.github.io/
