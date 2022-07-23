@@ -55,7 +55,7 @@ test:
     - pytest
   source_files:
     - build_tools/cibuildwheel_test_command.sh
-    - openmeeg/data
+    - data
 
 about:
   home: https://openmeeg.github.io/

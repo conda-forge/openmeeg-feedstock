@@ -20,6 +20,7 @@ cmake -GNinja                           \
       -DCMAKE_INSTALL_LIBDIR=lib        \
       -DBUILD_SHARED_LIBS=ON            \
       -DBLA_STATIC=ON                   \
+      -DUSE_OPENMP=ON                   \
       -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
       -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
