@@ -8,7 +8,7 @@ package:
 source:
   #url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
   url: https://github.com/{{ name }}/{{ name }}/archive/2af26b949a5a01562ada4eb09f9dd1c07d2bd9d5.tar.gz
-  sha256: 07c01fe4087db46eeaec4390b165db3258f922662561014e47b2fda33b13375e
+  sha256: 971aac54fc7bfb5b2ee94cb4df09a4c2aff461fb0097f89cdd62f6aeafd19270
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
@@ -64,6 +64,5 @@ about:
 
 extra:
   recipe-maintainers:
-    - massich
     - agramfort
     - larsoner
