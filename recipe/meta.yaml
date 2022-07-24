@@ -1,5 +1,5 @@
 {% set name = "openmeeg" %}
-{% set version = "2.4.5" %}
+{% set version = "2.4.6" %}
 
 package:
   name: {{ name }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  sha256: 56c8a2aa43ae5c4d8417265c78efb2dbfea7a3d7bc1fceb99f683acb3996ac9f
+  sha256: 79d20979621c1c197a93b0f1364c8a891b9caa4fd2c246c5d55099c1d9fda7ed
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
