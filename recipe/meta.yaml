@@ -53,7 +53,7 @@ test:
   requires:
     - pytest
   source_files:
-    - build_tools/cibuildwheel_test_command.sh
+    - build_tools/cibw_test_command.sh
     - data
 
 about:

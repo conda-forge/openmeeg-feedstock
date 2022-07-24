@@ -1,3 +1,3 @@
 #!/bin/bash
 set -ex
-./build_tools/cibuildwheel_test_command.sh
+./build_tools/cibw_test_command.sh
