@@ -6,9 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  #url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
-  url: https://github.com/{{ name }}/{{ name }}/archive/822fc8a92b916c68c0ab0c5d561b1d3af44b52f3.tar.gz
-  sha256: b141e6a0427fd9fc2f72f4b493b73d7256f687256e4c62cf9cf89401813d28f0
+  url: https://github.com/{{ name }}/{{ name }}/archive/{{ version }}.tar.gz
+  sha256: 56c8a2aa43ae5c4d8417265c78efb2dbfea7a3d7bc1fceb99f683acb3996ac9f
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
