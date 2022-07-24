@@ -305,5 +305,4 @@ Feedstock Maintainers
 
 * [@agramfort](https://github.com/agramfort/)
 * [@larsoner](https://github.com/larsoner/)
-* [@massich](https://github.com/massich/)
 
