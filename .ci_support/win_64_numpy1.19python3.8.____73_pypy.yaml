@@ -5,7 +5,7 @@ channel_targets:
 cxx_compiler:
 - vs2017
 hdf5:
-- 1.12.1
+- 1.12.2
 libmatio:
 - 1.5.23
 numpy:
