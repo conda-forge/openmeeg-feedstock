@@ -30,8 +30,7 @@ requirements:
   host:
     - python
     - numpy
-    - hdf5  # [win]
-    - hdf5-static  # [not win]
+    - hdf5
     - libgfortran  # [not win]
     - libgfortran5  # [not win]
     - openblas
