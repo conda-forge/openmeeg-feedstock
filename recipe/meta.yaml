@@ -11,7 +11,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
