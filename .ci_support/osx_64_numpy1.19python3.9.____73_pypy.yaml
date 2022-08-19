@@ -8,6 +8,8 @@ cxx_compiler:
 - clangxx
 cxx_compiler_version:
 - '14'
+hdf5:
+- 1.12.1
 libmatio:
 - 1.5.23
 llvm_openmp:
