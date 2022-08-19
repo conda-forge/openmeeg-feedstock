@@ -40,7 +40,7 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - libgfortran
+    - libgfortran  # [not win]
     - libgfortran5  # [not win]
     - ucrt  # [win]
     - libopenblas
