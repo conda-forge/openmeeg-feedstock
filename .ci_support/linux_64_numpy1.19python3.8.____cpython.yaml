@@ -10,6 +10,8 @@ cxx_compiler_version:
 - '10'
 docker_image:
 - quay.io/condaforge/linux-anvil-cos7-x86_64
+hdf5:
+- 1.12.2
 libmatio:
 - 1.5.23
 numpy:
