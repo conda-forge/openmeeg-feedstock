@@ -18,9 +18,6 @@ cmake -GNinja                           \
       -DBUILD_DOCUMENTATION:BOOL=OFF    \
       -DCMAKE_INSTALL_PREFIX=$PREFIX    \
       -DCMAKE_INSTALL_LIBDIR=lib        \
-      -DBUILD_SHARED_LIBS=ON            \
-      -DBLA_STATIC=ON                   \
-      -DLAPACK_LIBRARIES=$PREFIX/lib/libopenblas.a \
       -DCMAKE_CXX_FLAGS="-lgfortran"    \
       $SRC_DIR
 

@@ -11,7 +11,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -30,8 +30,7 @@ requirements:
   host:
     - python
     - numpy
-    - hdf5  # [win]
-    - hdf5-static  # [not win]
+    - hdf5
     - libgfortran  # [not win]
     - libgfortran5  # [not win]
     - openblas
@@ -42,8 +41,9 @@ requirements:
     - python
     - {{ pin_compatible('numpy') }}
     - libgfortran  # [not win]
+    - libgfortran5  # [not win]
     - ucrt  # [win]
-    - libopenblas  # [win]
+    - libopenblas
     - zlib
     - libmatio
 
