@@ -22,6 +22,7 @@ requirements:
     - make
     - ninja  # [not win]
     - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}  # just for OpenBLAS to link properly
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - pthread-stubs  # [win]
@@ -31,7 +32,6 @@ requirements:
     - python
     - numpy
     - hdf5
-    - {{ compiler('fortran') }}
     - openblas
     - zlib
     - libmatio
