@@ -11,7 +11,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -52,8 +52,10 @@ test:
   requires:
     - pytest
   source_files:
-    - build_tools/cibw_test_command.sh
     - data
+  commands:
+    - python run_test.py
+    - om_minverser --help
 
 about:
   home: https://openmeeg.github.io/
