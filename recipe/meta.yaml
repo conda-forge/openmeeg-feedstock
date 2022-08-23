@@ -11,7 +11,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -22,6 +22,7 @@ requirements:
     - make
     - ninja  # [not win]
     - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}  # just for OpenBLAS to link properly
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - pthread-stubs  # [win]
@@ -31,8 +32,6 @@ requirements:
     - python
     - numpy
     - hdf5
-    - libgfortran  # [not win]
-    - libgfortran5  # [not win]
     - openblas
     - zlib
     - libmatio
