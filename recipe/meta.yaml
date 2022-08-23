@@ -51,13 +51,11 @@ test:
     - openmeeg
   requires:
     - pytest
-    - bash
   source_files:
-    - build_tools/cibw_test_command.sh
     - data
   commands:
+    - python run_test.py
     - om_minverser --help
-    - bash "./build_tools/cibw_test_command.sh"
 
 about:
   home: https://openmeeg.github.io/
