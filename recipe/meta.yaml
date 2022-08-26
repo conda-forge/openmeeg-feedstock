@@ -1,6 +1,7 @@
 {% set name = "openmeeg" %}
-{% set version = "2.5.3" %}
-{% set sha256 = "f065854c0f2410611ace2d3780e57e986bb8f5314b1b1d7e30e6dc06f07657b5" %}
+{% set version = "2.5.5" %}
+{% set build_number = "0" %}
+{% set sha256 = "89bd2e8158badb5847b9b645dcd7263534713a46cd66ad3c0172204ec81bebe6" %}
 
 package:
   name: {{ name }}
@@ -12,7 +13,7 @@ source:
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
-  number: 0
+  number: {{ build_number }}
 
 requirements:
   build:
