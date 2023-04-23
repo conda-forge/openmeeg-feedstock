@@ -1,27 +1,25 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '11.0'
+cdt_name:
+- cos6
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- clangxx
+- gxx
 cxx_compiler_version:
-- '14'
+- '12'
+docker_image:
+- quay.io/condaforge/linux-anvil-cos7-x86_64
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '11'
+- '12'
 hdf5:
 - 1.12.2
 libmatio:
 - 1.5.23
-llvm_openmp:
-- '14'
-macos_machine:
-- arm64-apple-darwin20.0.0
 numpy:
-- '1.20'
+- '1.21'
 openblas:
 - 0.3.*
 pin_run_as_build:
@@ -31,7 +29,7 @@ pin_run_as_build:
 python:
 - 3.9.* *_cpython
 target_platform:
-- osx-arm64
+- linux-64
 zip_keys:
 - - cxx_compiler_version
   - fortran_compiler_version

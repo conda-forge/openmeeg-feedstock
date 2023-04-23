@@ -9,17 +9,17 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '14'
+- '15'
 fortran_compiler:
 - gfortran
 fortran_compiler_version:
-- '11'
+- '12'
 hdf5:
 - 1.12.2
 libmatio:
 - 1.5.23
 llvm_openmp:
-- '14'
+- '15'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
