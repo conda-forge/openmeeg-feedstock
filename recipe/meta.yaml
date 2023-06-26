@@ -37,7 +37,7 @@ requirements:
     - openblas
     - zlib
     - libmatio  # [not win]
-    - libmatio =1.5.23=*_2  # [win]
+    - libmatio =1.5.23=*_3  # [win]
 
   run:
     - python
