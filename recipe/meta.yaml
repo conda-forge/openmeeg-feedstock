@@ -36,7 +36,8 @@ requirements:
     - hdf5
     - openblas
     - zlib
-    - libmatio
+    - libmatio  # [not win]
+    - libmatio=*=*_3  # [win]
 
   run:
     - python
