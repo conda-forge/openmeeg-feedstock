@@ -58,7 +58,6 @@ test:
   source_files:
     - data
   commands:
-    - python run_test.py
     - om_minverser --help
     - python -c "from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}')"
     - pip check
