@@ -54,7 +54,8 @@ test:
   imports:
     - openmeeg
   requires:
-    - pytest
+    - pytest  # [not win]
+    - pytest <8  # [win]
     - packaging
     - pip
   source_files:
