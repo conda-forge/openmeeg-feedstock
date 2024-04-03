@@ -1,7 +1,7 @@
 {% set name = "openmeeg" %}
-{% set version = "2.5.7" %}
+{% set version = "2.5.8" %}
 {% set build_number = 0 %}
-{% set sha256 = "19e982821affb67fedb76fbeac6fbdc0b6653f3c8d4a6f807ef729566a42b0dc" %}
+{% set sha256 = "29f75346a87ef268bb03a56e9c863c9b97105dfc1fd6be4ddbb1354edb302c86" %}
 
 package:
   name: {{ name }}
@@ -37,6 +37,8 @@ requirements:
     - openblas
     - zlib
     - libmatio
+    - setuptools >=68.0.0
+    - wheel >=0.37.0
 
   run:
     - python
@@ -52,7 +54,8 @@ test:
   imports:
     - openmeeg
   requires:
-    - pytest
+    - pytest  # [not win]
+    - pytest <8  # [win]
     - packaging
     - pip
   source_files:
