@@ -22,6 +22,8 @@ requirements:
     - numpy                                  # [build_platform != target_platform]
     - cmake >=3.19
     - make
+    - setuptools >=68.0.0
+    - wheel >=0.37.0
     - ninja  # [not win]
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}  # just for OpenBLAS to link properly
