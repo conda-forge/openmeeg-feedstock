@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
 {% set version = "2.5.8" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set sha256 = "29f75346a87ef268bb03a56e9c863c9b97105dfc1fd6be4ddbb1354edb302c86" %}
 
 package:
@@ -14,6 +14,7 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
+  skip: True  # [py<39]
 
 requirements:
   build:
@@ -25,6 +26,7 @@ requirements:
     - ninja  # [not win]
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}  # just for OpenBLAS to link properly
+    - {{ stdlib("c") }}
     - llvm-openmp  # [osx]
     - libgomp      # [linux]
     - pthread-stubs  # [win]
@@ -42,7 +44,6 @@ requirements:
 
   run:
     - python
-    - {{ pin_compatible('numpy') }}
     - libgfortran  # [not win]
     - libgfortran5  # [not win]
     - ucrt  # [win]
