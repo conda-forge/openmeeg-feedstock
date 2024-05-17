@@ -14,6 +14,7 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
+  skip: True  # [py<39]
 
 requirements:
   build:
@@ -32,7 +33,7 @@ requirements:
     - swig
 
   host:
-    - python >=3.9
+    - python
     - numpy
     - hdf5
     - openblas
