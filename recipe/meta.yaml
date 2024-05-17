@@ -32,7 +32,7 @@ requirements:
     - swig
 
   host:
-    - python
+    - python >=3.9
     - numpy
     - hdf5
     - openblas
