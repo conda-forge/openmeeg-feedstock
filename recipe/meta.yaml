@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
-{% set version = "2.5.8" %}
-{% set build_number = 1 %}
+{% set version = "2.5.9" %}
+{% set build_number = 0 %}
 {% set sha256 = "29f75346a87ef268bb03a56e9c863c9b97105dfc1fd6be4ddbb1354edb302c86" %}
 
 package:
@@ -63,7 +63,7 @@ test:
     - data
   commands:
     - om_minverser --help
-    - python -c "from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}')"
+    - python -c "from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
     - pip check
     - pip show openmeeg
 
