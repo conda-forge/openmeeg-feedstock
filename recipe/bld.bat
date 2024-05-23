@@ -5,6 +5,7 @@ set CMAKE_CONFIG=Release
 
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
+copy /Y "%SRC_DIR%\.git_archival.txt" "wrapping\python\.git_archival.txt"
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
 SET EXT_SUFFIX=%%F
