@@ -1,8 +1,9 @@
 #!/bin/bash
 
+export SETUPTOOLS_SCM_PRETEND_VERSION=$(python -m setuptools_scm -c wrapping/python/pyproject.toml)
+
 BUILD_DIR=build
-mkdir -p $BUILD_DIR/wrapping/python && cd $BUILD_DIR
-cp -av $SRC_DIR/.git_archival.txt wrapping/python/
+mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
 
