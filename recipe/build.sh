@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=$(python -m setuptools_scm -c wrapping/python/pyproject.toml)
+
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 

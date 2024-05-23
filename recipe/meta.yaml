@@ -1,7 +1,7 @@
 {% set name = "openmeeg" %}
-{% set version = "2.5.8" %}
-{% set build_number = 1 %}
-{% set sha256 = "29f75346a87ef268bb03a56e9c863c9b97105dfc1fd6be4ddbb1354edb302c86" %}
+{% set version = "2.5.10" %}
+{% set build_number = 0 %}
+{% set sha256 = "1f13122c28eda5b152b8df9edf1c5daf236bc5f330fac680d59af9fca40a5672" %}
 
 package:
   name: {{ name }}
@@ -14,7 +14,7 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
-  skip: True  # [py<39]
+  skip: true  # [py<39]
 
 requirements:
   build:
@@ -40,6 +40,7 @@ requirements:
     - zlib
     - libmatio
     - setuptools >=68.0.0
+    - setuptools_scm >=6.2
     - wheel >=0.37.0
 
   run:
@@ -63,7 +64,7 @@ test:
     - data
   commands:
     - om_minverser --help
-    - python -c "from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}')"
+    - python -c "from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
     - pip check
     - pip show openmeeg
 
