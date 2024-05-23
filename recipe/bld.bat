@@ -4,9 +4,9 @@ echo on
 set CMAKE_CONFIG=Release
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -m setuptools_scm -c wrapping/python/pyproject.toml`) DO (
-SET SETUPTOOLS_SCM_PRETEND_VERSION=%%F
+SET SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=%%F
 )
-echo "%SETUPTOOLS_SCM_PRETEND_VERSION%"
+echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
 
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
