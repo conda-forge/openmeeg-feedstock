@@ -40,6 +40,7 @@ requirements:
     - zlib
     - libmatio
     - setuptools >=68.0.0
+    - setuptools_scm >=6.2
     - wheel >=0.37.0
 
   run:
