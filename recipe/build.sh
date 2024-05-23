@@ -2,7 +2,7 @@
 
 BUILD_DIR=build
 mkdir -p $BUILD_DIR/wrapping/python && cd $BUILD_DIR
-cp -av .git_archival.txt $BUILD_DIR/wrapping/python/
+cp -av $SRC_DIR/.git_archival.txt $BUILD_DIR/wrapping/python/
 
 EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
 
