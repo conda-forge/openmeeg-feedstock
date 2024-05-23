@@ -1,7 +1,9 @@
 #!/bin/bash
 
 BUILD_DIR=build
-mkdir -p $BUILD_DIR && cd $BUILD_DIR
+mkdir -p $BUILD_DIR
+cp -a .git_archival.txt $BUILD_DIR
+cd $BUILD_DIR
 
 EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
 
