@@ -3,9 +3,13 @@ setlocal EnableDelayedExpansion
 echo on
 set CMAKE_CONFIG=Release
 
+FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -m setuptools_scm -c wrapping/python/pyproject.toml`) DO (
+SET SETUPTOOLS_SCM_PRETEND_VERSION=%%F
+)
+echo "%SETUPTOOLS_SCM_PRETEND_VERSION%"
+
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
-copy /Y "%SRC_DIR%\.git_archival.txt" "wrapping\python\.git_archival.txt"
 
 FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
 SET EXT_SUFFIX=%%F
