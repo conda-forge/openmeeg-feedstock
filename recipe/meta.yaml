@@ -45,8 +45,8 @@ requirements:
 
   run:
     - python
-    - libgfortran  # [not win and not ppcc64le]
-    - libgfortran5  # [not win and not ppcc64le]
+    - libgfortran  # [not win and not ppc64le]
+    - libgfortran5  # [not win and not ppc64le]
     - ucrt  # [win]
     - libopenblas
     - zlib
