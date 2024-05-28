@@ -10,7 +10,8 @@ github:
   tooling_branch_name: main
 provider:
   linux_aarch64: default
-  # Wait until native builds work on Travis to enable this
-  # linux_ppc64le: default
+  # Wait until native builds work on Travis to enable this with "default",
+  # "azure" which emulates will be too slow
+  linux_ppc64le: False
   win: azure
 test: native_and_emulated
