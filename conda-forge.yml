@@ -12,6 +12,6 @@ provider:
   linux_aarch64: default
   # Wait until native builds work on Travis to enable this with "default",
   # "azure" which emulates will be too slow
-  linux_ppc64le: False
+  linux_ppc64le: None
   win: azure
 test: native_and_emulated
