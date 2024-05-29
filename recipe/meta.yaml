@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
 {% set version = "2.5.11" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set sha256 = "d5bcd62beabee4fb4072436ae451d2ebb73713773694a1cc62178c9bac2970dd" %}
 
 package:
@@ -14,7 +14,8 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
-  skip: true  # [py<39]
+  # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
+  skip: true  # [py<39 or ppc64le]]
 
 requirements:
   build:
@@ -45,8 +46,6 @@ requirements:
 
   run:
     - python
-    - libgfortran  # [not win]
-    - libgfortran5  # [not win]
     - ucrt  # [win]
     - libopenblas
     - zlib
