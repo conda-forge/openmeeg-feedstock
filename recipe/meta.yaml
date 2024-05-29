@@ -14,7 +14,8 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
-  skip: true  # [py<39]
+  # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
+  skip: true  # [py<39 or ppc64le]]
 
 requirements:
   build:
@@ -45,8 +46,6 @@ requirements:
 
   run:
     - python
-    - libgfortran  # [not win and not ppc64le]
-    - libgfortran5  # [not win and not ppc64le]
     - ucrt  # [win]
     - libopenblas
     - zlib
