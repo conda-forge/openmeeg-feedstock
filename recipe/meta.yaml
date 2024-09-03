@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
 {% set version = "2.5.12" %}
-{% set build_number = 0 %}
+{% set build_number = 1 %}
 {% set sha256 = "0c1e36a9f76c2808f6ceb0351a4e5a373200cad3af92f7a390c5b7b36c7254fe" %}
 
 package:
@@ -15,7 +15,7 @@ source:
 build:
   number: {{ build_number }}
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
-  skip: true  # [py<39 or ppc64le]]
+  skip: true  # [py<39 or ppc64le or aarch64]]
 
 requirements:
   build:
