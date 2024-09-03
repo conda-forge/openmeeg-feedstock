@@ -15,7 +15,7 @@ source:
 build:
   number: {{ build_number }}
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
-  skip: true  # [py<39 or ppc64le]]
+  skip: true  # [py<39 or ppc64le or aarch64]]
 
 requirements:
   build:
