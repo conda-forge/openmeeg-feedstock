@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
 {% set version = "2.5.15" %}
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 {% set sha256 = "2fc2cb0e8beb72650846f2713d6ebe85939890337777a2bbae17adf9e57a03de" %}
 
 package:
