@@ -20,6 +20,7 @@ build:
   skip: true  # [py<311 or ppc64le or aarch64 or (is_abi3 and py!=311)]
   script_env:
     - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
+  entry_points:  # explicitly empty
 
 requirements:
   build:
