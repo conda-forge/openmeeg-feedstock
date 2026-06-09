@@ -17,6 +17,8 @@ build:
   python_version_independent: true   # [is_abi3]
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
   skip: true  # [py<311 or (is_abi3 and py!=311)]
+  script_env:
+    - SETUPTOOLS_SCM_PRETEND_VERSION={{ version }}
 
 requirements:
   build:
