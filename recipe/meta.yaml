@@ -1,6 +1,6 @@
 {% set name = "openmeeg" %}
 {% set version = "2.5.16" %}
-{% set build_number = 1 %}
+{% set build_number = 2 %}
 {% set sha256 = "29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884" %}
 
 package:
@@ -14,8 +14,9 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: {{ build_number }}
+  python_version_independent: true   # [is_abi3]
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le for now
-  skip: true  # [py<39 or ppc64le or aarch64]]
+  skip: true  # [py<311 or (is_abi3 and py!=311)]
 
 requirements:
   build:
@@ -35,6 +36,7 @@ requirements:
 
   host:
     - python
+    - python-abi3  # [is_abi3]
     - numpy
     - hdf5
     - openblas
