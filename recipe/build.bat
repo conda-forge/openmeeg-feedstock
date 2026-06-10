@@ -31,7 +31,7 @@ else (
 )
 
 :: Pass LIBPATH to make sure CL finds the ABI3 import library during linking
-SET CXXFLAGS=-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000
+SET CXXFLAGS=-I%LIBRARY_INC%\openblas
 SET LDFLAGS=/LIBPATH:%PYTHON_SABI_LIBRARY_DIR%
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
