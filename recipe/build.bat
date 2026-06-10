@@ -10,6 +10,8 @@ echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
+if not exist %PREFIX%\\libs\\python3.lib exit 1
+
 :: FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
 :: SET EXT_SUFFIX=%%F
 :: )
@@ -23,6 +25,7 @@ cmake -B . ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
+      -DPython3_LIBRARIES:FILEPATH="%PREFIX%\libs\python3.lib"
       -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
       -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
       -DCMAKE_GENERATOR_TOOLSET=v142 ^
