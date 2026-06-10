@@ -26,7 +26,7 @@ if not exist "%PYTHON_SABI_LIBRARY%" (
     exit /b 1
 )
 :: Make sure CL finds the ABI3 import library
-SET LIB=%PYTHON_LIBRARY_DIR%;%LIB%
+SET LIB=%PYTHON_SABI_LIBRARY_DIR%;%LIB%
 
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
