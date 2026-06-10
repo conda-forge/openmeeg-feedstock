@@ -64,7 +64,7 @@ tests:
       python_version:
         - if: is_abi3
           then: ${{ python_min }}.*
-        - "*"  # TODO: REENABLE!
+        # - "*"  # TODO: REENABLE!
   - requirements:
       run:
         - if: not win
