@@ -17,6 +17,9 @@ if not exist %PREFIX%\\libs\\python3.lib exit 1
 :: )
 SET EXT_SUFFIX=".pyd"
 echo "EXT_SUFFIX=%EXT_SUFFIX%"
+# Adapted from pyside feedstock
+set PYTHON_LIBRARY=%PREFIX%\libs\python%PY_VER:~0,1%%PY_VER:~2,1%.lib
+echo "PYTHON_LIBRARY=%PYTHON_LIBRARY%"
 
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
@@ -25,7 +28,7 @@ cmake -B . ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
-      -DPython3_LIBRARIES:FILEPATH="%PREFIX%\libs\python3.lib"
+      -DPython3_LIBRARY:FILEPATH="%PYTHON_LIBRARY%" ^
       -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
       -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
       -DCMAKE_GENERATOR_TOOLSET=v142 ^
