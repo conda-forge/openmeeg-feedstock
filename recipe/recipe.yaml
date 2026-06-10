@@ -20,7 +20,7 @@ build:
     version_independent: ${{ is_abi3 }}
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le and aarch64 for now
   # We could use emulated builds, but it's a pain
-  skip: (is_abi3 and not is_python_min) or ppc64le or aarch64
+  skip: python<${{ python_min }} or (is_abi3 and not match(python, "${{ python_min }}.*")) or ppc64le or aarch64
 
 requirements:
   build:
@@ -34,12 +34,9 @@ requirements:
     - if: not win
       then: ninja
     - ${{ compiler('cxx') }}
-    - ${{ compiler('fortran') }}  # just for OpenBLAS to link properly
     - ${{ stdlib("c") }}
     - if: osx
       then: llvm-openmp
-    - if: linux
-      then: libgomp
     - if: win
       then: pthread-stubs
     - swig
@@ -49,9 +46,7 @@ requirements:
     - if: is_abi3
       then: python-abi3
     - numpy
-    - hdf5
     - openblas
-    - zlib
     - libmatio
     - setuptools >=68.0.0
     - setuptools_scm >=6.2
@@ -62,7 +57,6 @@ requirements:
     - if: win
       then: ucrt
     - libopenblas
-    - zlib
     - libmatio
 
 tests:
@@ -72,7 +66,7 @@ tests:
       python_version:
         - if: is_abi3
           then: ${{ python_min }}.*
-        # - "*"  # TODO: REENABLE!
+        - "*"  # TODO: REENABLE!
   - requirements:
       run:
         - if: not win
@@ -82,20 +76,14 @@ tests:
         - pip
         - if: is_abi3
           then: abi3audit
-    files:
-      source:
-        - data
     script:
       - om_minverser --help
       - if: unix and is_abi3
-        then: abi3audit $SP_DIR/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-      - if: win
-        then: dir %SP_DIR%\_openmeeg.*
+        then:
+          - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win and is_abi3
-        then: abi3audit %SP_DIR%/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
-      - if: unix
-        then: ldd $SP_DIR/_openmeeg.abi3.so
-      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
+        then: abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
 

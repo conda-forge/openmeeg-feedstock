@@ -2,3 +2,5 @@ c_compiler:    # [osx]
   - clang      # [osx]
 cxx_compiler:  # [osx]
   - clangxx    # [osx]
+python_min:
+  - 3.11
