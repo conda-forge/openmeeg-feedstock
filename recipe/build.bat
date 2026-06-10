@@ -15,14 +15,14 @@ pushd build_%CMAKE_CONFIG%
 :: )
 SET EXT_SUFFIX=.pyd
 echo EXT_SUFFIX=%EXT_SUFFIX%
-SET PYTHON_LIBRARY_DIR=%PREFIX%\libs
-echo PYTHON_LIBRARY_DIR=%PYTHON_LIBRARY_DIR%
-SET PYTHON_LIBRARY=%PYTHON_LIBRARY_DIR%\python3.lib
-echo Checking for ABI3 import lib: %PYTHON_LIBRARY%
-if not exist "%PYTHON_LIBRARY%" (
-    echo ABI3 import library not found at %PYTHON_LIBRARY%
-    echo Contents of %PYTHON_LIBRARY_DIR%:
-    dir "%PYTHON_LIBRARY_DIR%"
+SET PYTHON_SABI_LIBRARY_DIR=%PREFIX%\libs
+echo PYTHON_SABI_LIBRARY_DIR=%PYTHON_SABI_LIBRARY_DIR%
+SET PYTHON_SABI_LIBRARY=%PYTHON_SABI_LIBRARY_DIR%\python3.lib
+echo Checking for ABI3 import lib: %PYTHON_SABI_LIBRARY%
+if not exist "%PYTHON_SABI_LIBRARY%" (
+    echo ABI3 import library not found at %PYTHON_SABI_LIBRARY%
+    echo Contents of %PYTHON_SABI_LIBRARY_DIR%:
+    dir "%PYTHON_SABI_LIBRARY_DIR%"
     exit /b 1
 )
 :: Make sure CL finds the ABI3 import library
@@ -35,7 +35,7 @@ cmake -B . ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
-      -DPython3_LIBRARY_DIRS=%PYTHON_LIBRARY_DIR% ^
+      -DPython3_SABI_LIBRARY_DIRS=%PYTHON_SABI_LIBRARY_DIR% ^
       -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
       -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
       -DCMAKE_GENERATOR_TOOLSET=v143 ^
