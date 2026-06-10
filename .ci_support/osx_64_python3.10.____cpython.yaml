@@ -21,7 +21,7 @@ libmatio:
 llvm_openmp:
 - '19'
 macos_machine:
-- arm64-apple-darwin20.0.0
+- x86_64-apple-darwin13.4.0
 numpy:
 - '2'
 openblas:
@@ -31,8 +31,8 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.10.* *_cpython
 python_min:
-- '3.11'
+- '3.10'
 target_platform:
-- osx-arm64
+- osx-64

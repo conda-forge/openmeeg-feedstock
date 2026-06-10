@@ -25,14 +25,8 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.10.* *_cpython
 python_min:
-- '3.11'
+- '3.10'
 target_platform:
-- linux-aarch64
-build_platform:
 - linux-64
-CMAKE_CROSSCOMPILING_EMULATOR: 
-- /usr/bin/qemu-aarch64-static
-CROSSCOMPILING_EMULATOR: 
-- /usr/bin/qemu-aarch64-static
