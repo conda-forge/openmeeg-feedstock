@@ -2,13 +2,13 @@
 
 set -exo pipefail
 
-export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=$(python -m setuptools_scm -c wrapping/python/pyproject.toml)
+export SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=$PKG_VERSION
+export SETUPTOOLS_SCM_PRETEND_VERSION=$PKG_VERSION
 
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
-
 echo "Running CMAKE"
 cmake -GNinja                           \
       ${CMAKE_ARGS}                     \

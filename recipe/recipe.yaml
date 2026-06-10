@@ -1,0 +1,112 @@
+context:
+  name: "openmeeg"
+  version: "2.5.16"
+  build_number: 2
+  sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
+  python_min: "3.11"
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
+  sha256: ${{ sha256 }}
+
+# https://conda-forge.org/docs/maintainer/knowledge_base.html
+build:
+  number: ${{ build_number }}
+  python:
+    version_independent: ${{ is_abi3 }}
+  # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le and aarch64 for now
+  # We could use emulated builds, but it's a pain
+  skip: py<${{ python_min }} or (is_abi3 and py!=${{ python_min }}) or ppc64le or aarch64
+
+requirements:
+  build:
+    - if: build_platform == target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
+    - cmake >=3.19
+    - make
+    - if: not win
+      then: ninja
+    - ${{ compiler('cxx') }}
+    - ${{ compiler('fortran') }}  # just for OpenBLAS to link properly
+    - ${{ stdlib("c") }}
+    - if: osx
+      then: llvm-openmp
+    - if: linux
+      then: libgomp
+    - if: win
+      then: pthread-stubs
+    - swig
+
+  host:
+    - python
+    - if: is_abi3
+      then: python-abi3
+    - numpy
+    - hdf5
+    - openblas
+    - zlib
+    - libmatio
+    - setuptools >=68.0.0
+    - setuptools_scm >=6.2
+    - wheel >=0.37.0
+
+  run:
+    - python
+    - if: win
+      then: ucrt
+    - libopenblas
+    - zlib
+    - libmatio
+
+tests:
+  - python:
+      imports:
+        - openmeeg
+      python_version:
+        - if: is_abi3
+          then: ${{ python_min }}.*
+        - "*"
+  - requirements:
+      run:
+        - if: not win
+          then: pytest
+          else: pytest <8
+        - packaging
+        - pip
+        - if: is_abi3
+          then: abi3audit
+    files:
+      source:
+        - data
+    script:
+      - om_minverser --help
+      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
+      - pip check
+      - pip show openmeeg
+      - if: unix
+        then: ls $SP_DIR/_openmeeg.*
+      - if: unix and is_abi3
+        then: abi3audit $SP_DIR/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+      - if: win
+        then: dir %SP_DIR%\_openmeeg.*
+      - if: win and is_abi3
+        then: abi3audit %SP_DIR%/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+
+about:
+  home: https://openmeeg.github.io/
+  license: CECILL-B
+  license_file: LICENSE.txt
+  summary: >
+    A C++ package for solving the forward problems of electroencephalography (EEG) and magnetoencephalography (MEG).
+
+extra:
+  recipe-maintainers:
+    - agramfort
+    - larsoner
