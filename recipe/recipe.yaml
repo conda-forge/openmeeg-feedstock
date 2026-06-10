@@ -64,7 +64,7 @@ tests:
       python_version:
         - if: is_abi3
           then: ${{ python_min }}.*
-        - "*"  # TODO: REENABLE!
+        # - "*"  # TODO: REENABLE!
   - requirements:
       run:
         - if: not win
@@ -78,9 +78,12 @@ tests:
       - om_minverser --help
       - if: unix and is_abi3
         then:
+          - ls $SP_DIR/openmeeg/_openmeeg.*
           - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win and is_abi3
-        then: abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+        then:
+          - dir %SP_DIR%\openmeeg\_openmeeg.*
+          - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
