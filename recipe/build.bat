@@ -13,18 +13,24 @@ pushd build_%CMAKE_CONFIG%
 :: FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
 :: SET EXT_SUFFIX=%%F
 :: )
-SET EXT_SUFFIX=".pyd"
-echo "EXT_SUFFIX=%EXT_SUFFIX%"
+SET EXT_SUFFIX=.pyd
+echo EXT_SUFFIX=%EXT_SUFFIX%
 SET PYTHON_LIBRARY_DIR=%PREFIX%\libs
+echo PYTHON_LIBRARY_DIR=%PYTHON_LIBRARY_DIR%
 SET PYTHON_LIBRARY=%PYTHON_LIBRARY_DIR%\python3.lib
-echo "Checking for PYTHON_LIBRARY=%PYTHON_LIBRARY%"
-if not exist %PYTHON_LIBRARY% exit 1
-:: Help the linker during SWIG
+echo Checking for ABI3 import lib: %PYTHON_LIBRARY%
+if not exist "%PYTHON_LIBRARY%" (
+    echo ABI3 import library not found at %PYTHON_LIBRARY%
+    echo Contents of %PYTHON_LIBRARY_DIR%:
+    dir "%PYTHON_LIBRARY_DIR%"
+    exit /b 1
+)
+:: Make sure CL finds the ABI3 import library
 SET LIB=%PYTHON_LIBRARY_DIR%;%LIB%
 
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
-      -DCMAKE_CXX_FLAGS="-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000" ^
+      -DCMAKE_CXX_FLAGS='-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000' ^
       -DBLA_VENDOR:STRING=OpenBLAS ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
