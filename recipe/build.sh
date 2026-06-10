@@ -23,6 +23,7 @@ cmake -GNinja \
       -DBLA_VENDOR:STRING=OpenBLAS \
       -DENABLE_PYTHON:BOOL=ON \
       -DPython3_EXECUTABLE="$USE_PYTHON" \
+      -DPython3_INCLUDE_DIR="$PREFIX/include" ^
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX \
       -DPYTHON_FORCE_EXT_SUFFIX=ON \
       -DPYTHON_INSTALL_RELATIVE=OFF \

@@ -10,8 +10,6 @@ echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
-if not exist %PREFIX%\\libs\\python3.lib exit 1
-
 :: FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
 :: SET EXT_SUFFIX=%%F
 :: )
@@ -19,16 +17,16 @@ SET EXT_SUFFIX=".pyd"
 echo "EXT_SUFFIX=%EXT_SUFFIX%"
 # Adapted from pyside feedstock
 set PYTHON_LIBRARY=%PREFIX%\libs\python%PY_VER:~0,1%%PY_VER:~2,1%.lib
-echo "PYTHON_LIBRARY=%PYTHON_LIBRARY%"
+echo "Checking for PYTHON_LIBRARY=%PYTHON_LIBRARY%"
+if not exist %PYTHON_LIBRARY% exit 1
 
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
-      -DCMAKE_CXX_FLAGS="-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000" ^
+      -DCMAKE_CXX_FLAGS="-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000 /LIBPATH:%PREFIX%\libs" ^
       -DBLA_VENDOR:STRING=OpenBLAS ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
-      -DPython3_LIBRARIES:FILEPATH="%PYTHON_LIBRARY%" ^
       -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
       -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
       -DCMAKE_GENERATOR_TOOLSET=v142 ^
