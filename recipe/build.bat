@@ -15,8 +15,7 @@ pushd build_%CMAKE_CONFIG%
 :: )
 SET EXT_SUFFIX=".pyd"
 echo "EXT_SUFFIX=%EXT_SUFFIX%"
-:: Adapted from pyside feedstock
-set PYTHON_LIBRARY=%PREFIX%\libs\python%PY_VER:~0,1%%PY_VER:~2,1%.lib
+set PYTHON_LIBRARY=%PREFIX%\libs\python3.lib
 echo "Checking for PYTHON_LIBRARY=%PYTHON_LIBRARY%"
 if not exist %PYTHON_LIBRARY% exit 1
 

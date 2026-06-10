@@ -15,16 +15,12 @@ EXT_SUFFIX=".abi3.so"
 # Windows: _openmeeg.pyd
 
 echo "PYTHON=$PYTHON"
-USE_PYTHON="$PREFIX/bin/python"
-echo "USE_PYTHON=$USE_PYTHON"
 echo "Running CMAKE"
 cmake -GNinja \
       ${CMAKE_ARGS} \
       -DBLA_VENDOR:STRING=OpenBLAS \
       -DENABLE_PYTHON:BOOL=ON \
-      -DPython3_EXECUTABLE="$USE_PYTHON" \
-      -DPython3_INCLUDE_DIR="$PREFIX/include" \
-      -DDPython3_NumPy_INCLUDE_DIRS="$SP_DIR/numpy/_core/include" \
+      -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX \
       -DPYTHON_FORCE_EXT_SUFFIX=ON \
       -DPYTHON_INSTALL_RELATIVE=OFF \
