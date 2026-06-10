@@ -27,6 +27,7 @@ cmake -B . ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
+      -DPython3_NumPy_INCLUDE_DIRS="%SP_DIR%\numpy\_core\include" ^
       -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
       -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
       -DCMAKE_GENERATOR_TOOLSET=v142 ^
