@@ -20,7 +20,7 @@ build:
     version_independent: ${{ is_abi3 }}
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le and aarch64 for now
   # We could use emulated builds, but it's a pain
-  skip: python<${{ python_min }} or (is_abi3 and not match(python, "${{ python_min }}.*"))
+  skip: python<${{ python_min }} or (is_abi3 and not match(python, "${{ python_min }}.*")) or ppc64le or aarch64
 
 requirements:
   build:
