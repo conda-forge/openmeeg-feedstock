@@ -1,0 +1,15 @@
+diff --git a/wrapping/python/CMakeLists.txt b/wrapping/python/CMakeLists.txt
+index 4e89b3fb..2c477074 100644
+--- a/wrapping/python/CMakeLists.txt
++++ b/wrapping/python/CMakeLists.txt
+@@ -15,7 +15,9 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.27")
+     cmake_policy(SET CMP0148 NEW)  # fail FindPythonInterp / FindPythonLibs
+ endif()
+ 
+-find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy)
++# Define ABI with -D here, and require it in the find_package
++add_definitions(-DPy_LIMITED_API=0x030A0000)
++find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy Development.SABIModule)
+ 
+ if (BUILD_TESTING)
+     find_package(Pytest)

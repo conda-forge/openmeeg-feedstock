@@ -32,7 +32,6 @@ cmake -GNinja \
       -DBUILD_DOCUMENTATION:BOOL=OFF \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \
-      -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000" \
       $SRC_DIR
 
 cmake --build . --target install --config RELEASE
