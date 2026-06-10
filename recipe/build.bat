@@ -1,10 +1,11 @@
 setlocal EnableDelayedExpansion
 
 @echo off
+set CMAKE_CONFIG=Release
 
 set SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=%PKG_VERSION%
 set SETUPTOOLS_SCM_PRETEND_VERSION=%PKG_VERSION%
-echo "SETUPTOOLS_SCM_PRETEND_VERSION=!SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG!"
+echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
 
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
@@ -13,7 +14,7 @@ pushd build_%CMAKE_CONFIG%
 :: set EXT_SUFFIX=%%F
 :: )
 set EXT_SUFFIX=.pyd
-echo EXT_SUFFIX=!EXT_SUFFIX!
+echo EXT_SUFFIX=%EXT_SUFFIX%
 
 set PYTHON_SABI_LIBRARY_DIR=!PREFIX!\libs
 echo PYTHON_SABI_LIBRARY_DIR=!PYTHON_SABI_LIBRARY_DIR!
@@ -24,13 +25,14 @@ if not exist !PYTHON_SABI_LIBRARY! (
     echo Contents of !PYTHON_SABI_LIBRARY_DIR!:
     dir "!PYTHON_SABI_LIBRARY_DIR!"
     exit /b 1
-) else (
+)
+else (
     echo Found ABI3 import library: !PYTHON_SABI_LIBRARY!
 )
 
 :: Pass LIBPATH to make sure CL finds the ABI3 import library during linking
 cmake -B . ^
-      -DCMAKE_BUILD_TYPE:STRING=RELEASE ^
+      -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
       -DBLA_VENDOR:STRING=OpenBLAS ^
       -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000 -I!LIBRARY_INC!\openblas" ^
       -DCMAKE_SHARED_LINKER_FLAGS="/LIBPATH:!PYTHON_SABI_LIBRARY_DIR!" ^
@@ -51,7 +53,7 @@ cmake -B . ^
       "%SRC_DIR%"
 if errorlevel 1 exit rem 1
 
-cmake --build . --target install --config RELEASE
+cmake --build . --target install --config %CMAKE_CONFIG%
 if errorlevel 1 exit 1
 
 popd
