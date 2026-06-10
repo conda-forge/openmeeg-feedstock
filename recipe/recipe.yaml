@@ -87,17 +87,17 @@ tests:
         - data
     script:
       - om_minverser --help
-      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
-      - pip check
-      - pip show openmeeg
-      - if: unix
-        then: ls $SP_DIR/_openmeeg.*
       - if: unix and is_abi3
         then: abi3audit $SP_DIR/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
       - if: win
         then: dir %SP_DIR%\_openmeeg.*
       - if: win and is_abi3
         then: abi3audit %SP_DIR%/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+      - if: unix
+        then: ldd $SP_DIR/_openmeeg.abi3.so
+      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('{{ version }}'), openmeeg.__version__"
+      - pip check
+      - pip show openmeeg
 
 about:
   homepage: https://openmeeg.github.io/
