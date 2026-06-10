@@ -10,9 +10,10 @@ echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
 mkdir build_%CMAKE_CONFIG%
 pushd build_%CMAKE_CONFIG%
 
-FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
-SET EXT_SUFFIX=%%F
-)
+:: FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
+:: SET EXT_SUFFIX=%%F
+:: )
+SET EXT_SUFFIX=".pyd"
 echo "EXT_SUFFIX=%EXT_SUFFIX%"
 
 cmake -B . ^

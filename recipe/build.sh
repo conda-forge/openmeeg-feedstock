@@ -8,7 +8,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=$PKG_VERSION
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
-EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
+# EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
+EXT_SUFFIX=".abi3.so"
+# Linux: _openmeeg.abi3.so
+# macOS: _openmeeg.abi3.so
+# Windows: _openmeeg.pyd
+
 echo "PYTHON=$PYTHON"
 USE_PYTHON="$PREFIX/bin/python"
 echo "USE_PYTHON=$USE_PYTHON"
