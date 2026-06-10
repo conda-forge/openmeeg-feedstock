@@ -25,12 +25,14 @@ if not exist "%PYTHON_SABI_LIBRARY%" (
     dir "%PYTHON_SABI_LIBRARY_DIR%"
     exit /b 1
 )
+else (
+    echo Found ABI3 import library: %PYTHON_SABI_LIBRARY%
+)
 :: Make sure CL finds the ABI3 import library
 SET LIB=%PYTHON_SABI_LIBRARY_DIR%;%LIB%
-
+SET CXX_FLAGS=-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000 -L%PYTHON_SABI_LIBRARY_DIR%
 cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=%CMAKE_CONFIG% ^
-      -DCMAKE_CXX_FLAGS='-I%LIBRARY_INC%\openblas -DPy_LIMITED_API=0x030A0000 -L%PYTHON_SABI_LIBRARY_DIR%' ^
       -DBLA_VENDOR:STRING=OpenBLAS ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
