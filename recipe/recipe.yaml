@@ -1,9 +1,9 @@
+schema_version: 1
 context:
   name: "openmeeg"
   version: "2.5.16"
   build_number: 2
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
-  python_min: "3.11"
 
 package:
   name: ${{ name }}
@@ -20,7 +20,7 @@ build:
     version_independent: ${{ is_abi3 }}
   # Could NOT find Python3 (missing: Python3_INCLUDE_DIRS ... so skip ppc64le and aarch64 for now
   # We could use emulated builds, but it's a pain
-  skip: py<${{ python_min }} or (is_abi3 and py!=${{ python_min }}) or ppc64le or aarch64
+  skip: python<${{ python_min }} or (is_abi3 and not match(python, "${{ python_min}}.*")) or ppc64le or aarch64
 
 requirements:
   build:
@@ -100,7 +100,7 @@ tests:
         then: abi3audit %SP_DIR%/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
 
 about:
-  home: https://openmeeg.github.io/
+  homepage: https://openmeeg.github.io/
   license: CECILL-B
   license_file: LICENSE.txt
   summary: >
