@@ -20,7 +20,7 @@ build:
   number: ${{ build_number }}
   python:
     version_independent: ${{ is_abi3 }}
-  skip: (is_abi3 and not is_python_min) or not win  # TODO: Restore non-Windows builds once working!
+  skip: is_abi3 and not is_python_min
 
 requirements:
   build:
