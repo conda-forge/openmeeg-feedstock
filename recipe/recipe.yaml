@@ -19,7 +19,7 @@ build:
   number: ${{ build_number }}
   python:
     version_independent: ${{ is_abi3 and not win }}
-  skip: python<${{ python_min }} or (is_abi3 and not win and not match(python, "${{ python_min }}.*"))
+  skip: is_abi3 and not win and not is_python_min
 
 requirements:
   build:
@@ -65,7 +65,7 @@ tests:
       python_version:
         - if: is_abi3 and not win
           then: ${{ python_min }}.*
-        - "*"  # TODO: REENABLE!
+        - "*"
   - requirements:
       run:
         - if: not win
