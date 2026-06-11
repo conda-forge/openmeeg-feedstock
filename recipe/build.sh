@@ -23,7 +23,6 @@ cmake -GNinja \
       ${CMAKE_ARGS} \
       -DBLA_VENDOR:STRING=OpenBLAS \
       -DENABLE_PYTHON:BOOL=ON \
-      -DUSE_PYTHON_SABI=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
       -DPython3_NumPy_INCLUDE_DIR=${Python_NumPy_INCLUDE_DIR} \
