@@ -1,0 +1,107 @@
+schema_version: 1
+context:
+  name: "openmeeg"
+  version: "2.5.16"
+  build_number: 2
+  sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
+
+package:
+  name: ${{ name }}
+  version: ${{ version }}
+
+source:
+  url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
+  sha256: ${{ sha256 }}
+  patches:
+    - sabi.patch
+
+# https://conda-forge.org/docs/maintainer/knowledge_base.html
+build:
+  number: ${{ build_number }}
+  python:
+    version_independent: ${{ is_abi3 }}
+  skip: is_abi3 and not is_python_min
+
+requirements:
+  build:
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+        - numpy
+    - cmake >=3.19
+    - make
+    - if: not win
+      then: ninja
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib("c") }}
+    - if: osx
+      then: llvm-openmp
+    - if: win
+      then: pthread-stubs
+    - swig
+
+  host:
+    - python
+    - if: is_abi3
+      then: python-abi3
+    - numpy
+    - openblas
+    - libmatio
+    - setuptools >=68.0.0
+    - setuptools_scm >=6.2
+    - wheel >=0.37.0
+
+  run:
+    - python
+    - if: win
+      then: ucrt
+    - libopenblas
+    - libmatio
+
+tests:
+  - python:
+      imports:
+        - openmeeg
+      python_version:
+        - if: is_abi3
+          then: ${{ python_min }}.*
+        - "*"
+  - requirements:
+      run:
+        - if: not win
+          then: pytest
+          else: pytest <8
+        - packaging
+        - pip
+        - if: is_abi3
+          then: abi3audit
+    script:
+      - om_minverser --help
+      - if: unix and is_abi3
+        then:
+          - ls $SP_DIR/openmeeg/_openmeeg.*
+          - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+      - if: win and is_abi3
+        then:
+          - dir %SP_DIR%\openmeeg\_openmeeg.*
+          - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+          # In case we run into problems in the future:
+          # curl -LO https://github.com/lucasg/Dependencies/releases/download/v1.11.1/Dependencies_x64_Release.zip
+          # powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('Dependencies_x64_Release.zip', 'Dependencies'); }"
+          # .\Dependencies\Dependencies.exe -modules %SP_DIR%\openmeeg\_openmeeg.pyd
+      - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
+      - pip check
+      - pip show openmeeg
+
+about:
+  homepage: https://openmeeg.github.io/
+  license: CECILL-B
+  license_file: LICENSE.txt
+  summary: >
+    A C++ package for solving the forward problems of electroencephalography (EEG) and magnetoencephalography (MEG).
+
+extra:
+  recipe-maintainers:
+    - agramfort
+    - larsoner

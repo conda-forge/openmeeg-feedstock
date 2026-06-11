@@ -1,0 +1,40 @@
+setlocal EnableDelayedExpansion
+
+@echo off
+
+set SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG=%PKG_VERSION%
+set SETUPTOOLS_SCM_PRETEND_VERSION=%PKG_VERSION%
+echo "%SETUPTOOLS_SCM_PRETEND_VERSION_FOR_OPENMEEG%"
+
+mkdir build
+pushd build
+
+:: FOR /F "tokens=* USEBACKQ" %%F IN (`%PYTHON% -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))"`) DO (
+:: set EXT_SUFFIX=%%F
+:: )
+set EXT_SUFFIX=.pyd
+echo EXT_SUFFIX=%EXT_SUFFIX%
+
+SET CXXFLAGS=-DPy_LIMITED_API=0x030A0000 -I!LIBRARY_INC!\openblas !CXXFLAGS!
+cmake -B . ^
+      -DCMAKE_BUILD_TYPE:STRING=RELEASE ^
+      -DBLA_VENDOR:STRING=OpenBLAS ^
+      -DENABLE_PYTHON:BOOL=ON ^
+      -DPython3_EXECUTABLE=%PYTHON% ^
+      -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
+      -DPYTHON_FORCE_EXT_SUFFIX:BOOL=ON ^
+      -DPYTHON_INSTALL_RELATIVE:BOOL=OFF ^
+      -DCMAKE_GENERATOR_TOOLSET=v143 ^
+      -DCMAKE_SYSTEM_VERSION=7 ^
+      -DCMAKE_INSTALL_PREFIX:PATH=%LIBRARY_PREFIX% ^
+      -DCMAKE_PREFIX_PATH:PATH=%LIBRARY_PREFIX% ^
+      -DBUILD_DOCUMENTATION:BOOL=OFF ^
+      -DENABLE_PACKAGING:BOOL=OFF ^
+      %CMAKE_ARGS% ^
+      "%SRC_DIR%"
+if errorlevel 1 exit 1
+
+cmake --build . --target install --config RELEASE --parallel %CPU_COUNT%
+if errorlevel 1 exit 1
+
+popd

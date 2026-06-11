@@ -1,0 +1,35 @@
+diff --git a/wrapping/python/CMakeLists.txt b/wrapping/python/CMakeLists.txt
+index 4e89b3fb..e59e0354 100644
+--- a/wrapping/python/CMakeLists.txt
++++ b/wrapping/python/CMakeLists.txt
+@@ -15,7 +15,12 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.27")
+     cmake_policy(SET CMP0148 NEW)  # fail FindPythonInterp / FindPythonLibs
+ endif()
+ 
+-find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy)
++# Adapted from https://github.com/openturns/otrobopt/blob/26110615de77be1964db95a0be321e32cd8fe302/python/src/CMakeLists.txt#L36
++find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy Development.SABIModule)
++message("Python3_Development.SABIModule_FOUND:   ${Python3_Development.SABIModule_FOUND}")
++message("Python3_SABI_LIBRARY:                   ${Python3_SABI_LIBRARY}")
++message("Python3_SABI_LIBRARIES:                 ${Python3_SABI_LIBRARIES}")
++message("Python3_SABI_LIBRARY_DIRS:              ${Python3_SABI_LIBRARY_DIRS}")
+ 
+ if (BUILD_TESTING)
+     find_package(Pytest)
+@@ -50,6 +55,7 @@ set(SWIG_MODULE_openmeeg_EXTRA_DEPS openmeeg/numpy.i ${SWIG_MODULE_openmeeg_EXTR
+ set_source_files_properties(openmeeg/_openmeeg.i PROPERTIES CPLUSPLUS ON GENERATED_COMPILE_DEFINITIONS SWIG_PYTHON_SILENT_MEMLEAK SWIG_MODULE_NAME _openmeeg_wrapper)
+ # This puts _openmeeg.py in openmeeg/
+ swig_add_library(${SWIG_TARGET_NAME} LANGUAGE python OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/openmeeg SOURCES openmeeg/_openmeeg.i)
++set_target_properties (${SWIG_TARGET_NAME} PROPERTIES COMPILE_FLAGS "-DPy_LIMITED_API=0x030A0000")
+ 
+ # This puts __openmeeg.so in openmeeg/
+ set_target_properties(${SWIG_TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY openmeeg/)
+@@ -81,7 +87,7 @@ endif()
+ if (APPLE)
+     swig_link_libraries(${SWIG_TARGET_NAME} OpenMEEG::OpenMEEG)
+ else()
+-    swig_link_libraries(${SWIG_TARGET_NAME} ${Python3_LIBRARIES} OpenMEEG::OpenMEEG)
++    swig_link_libraries(${SWIG_TARGET_NAME} ${Python3_SABI_LIBRARIES} OpenMEEG::OpenMEEG)
+ endif()
+ 
+ set(PYTHON_SITE_ARCH ${Python3_SITEARCH})
