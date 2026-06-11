@@ -4,7 +4,6 @@ context:
   version: "2.5.16"
   build_number: 2
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
-  # abi3 not working on Windows for some reason
 
 package:
   name: ${{ name }}
@@ -17,6 +16,7 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: ${{ build_number }}
+  # abi3 not working on Windows for some reason (see https://github.com/conda-forge/openmeeg-feedstock/pull/77)
   python:
     version_independent: ${{ is_abi3 and not win }}
   skip: is_abi3 and not win and not is_python_min
