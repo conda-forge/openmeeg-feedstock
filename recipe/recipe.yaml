@@ -88,7 +88,7 @@ tests:
           - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
           - curl -LO https://github.com/lucasg/Dependencies/releases/download/v1.11.1/Dependencies_x64_Release.zip
           - powershell.exe -nologo -noprofile -command "& { Add-Type -A 'System.IO.Compression.FileSystem'; [IO.Compression.ZipFile]::ExtractToDirectory('Dependencies_x64_Release.zip', 'Dependencies'); }"
-          - ./Dependencies/Dependencies.exe -modules %SP_DIR%\openmeeg\_openmeeg.pyd
+          - .\Dependencies\Dependencies.exe -modules %SP_DIR%\openmeeg\_openmeeg.pyd
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
