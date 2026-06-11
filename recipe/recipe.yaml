@@ -4,6 +4,9 @@ context:
   version: "2.5.16"
   build_number: 2
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
+  # abi3 not working on Windows for some reason. Once it does, can remove this and
+  # replace instances of "do_abi3" with "is_abi3"
+  do_abi3: is_abi3 and not win
 
 package:
   name: ${{ name }}
@@ -12,15 +15,13 @@ package:
 source:
   url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
   sha256: ${{ sha256 }}
-  patches:
-    - sabi.patch
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: ${{ build_number }}
   python:
-    version_independent: ${{ is_abi3 }}
-  skip: python<${{ python_min }} or (is_abi3 and not match(python, "${{ python_min }}.*"))
+    version_independent: ${{ do_abi3 }}
+  skip: python<${{ python_min }} or (do_abi3 and not match(python, "${{ python_min }}.*"))
 
 requirements:
   build:
@@ -43,7 +44,7 @@ requirements:
 
   host:
     - python
-    - if: is_abi3
+    - if: do_abi3
       then: python-abi3
     - numpy
     - openblas
@@ -64,9 +65,9 @@ tests:
       imports:
         - openmeeg
       python_version:
-        - if: is_abi3
+        - if: do_abi3
           then: ${{ python_min }}.*
-        # - "*"  # TODO: REENABLE!
+        - "*"  # TODO: REENABLE!
   - requirements:
       run:
         - if: not win
@@ -74,15 +75,15 @@ tests:
           else: pytest <8
         - packaging
         - pip
-        - if: is_abi3
+        - if: do_abi3
           then: abi3audit
     script:
       - om_minverser --help
-      - if: unix and is_abi3
+      - if: unix and do_abi3
         then:
           - ls $SP_DIR/openmeeg/_openmeeg.*
           - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-      - if: win and is_abi3
+      - if: win and do_abi3
         then:
           - dir %SP_DIR%\openmeeg\_openmeeg.*
           - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}

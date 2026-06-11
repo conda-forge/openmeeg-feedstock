@@ -9,6 +9,7 @@ BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
 # EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
+EXT_SUFFIX=".abi3.so"
 # Linux: _openmeeg.abi3.so
 # macOS: _openmeeg.abi3.so
 # Windows: _openmeeg.pyd
@@ -20,6 +21,7 @@ echo "Running CMAKE"
 cmake -GNinja \
       ${CMAKE_ARGS} \
       -DBLA_VENDOR:STRING=OpenBLAS \
+      -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000" \
       -DENABLE_PYTHON:BOOL=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
