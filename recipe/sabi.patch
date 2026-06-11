@@ -1,17 +1,17 @@
 diff --git a/cmake/options.cmake b/cmake/options.cmake
-index 2254919a..a4f3f015 100644
+index 2254919a..3e6d6e74 100644
 --- a/cmake/options.cmake
 +++ b/cmake/options.cmake
 @@ -13,6 +13,7 @@ set(PYTHON_VERSION 3 CACHE STRING "Python version to use: 3, 3.x, or empty")
  option(PYTHON_INSTALL_RELATIVE "Make Python install path relative to install-prefix (instead of using Python3_SITEARCH directly)" ON)
  option(PYTHON_COPY_RUNTIME_DLLS "Copy runtime DLLs to the cmake build path" OFF)
  option(PYTHON_FORCE_EXT_SUFFIX "Force Python extension suffix" OFF)
-+option(PYTHON_USE_SABI "Use Python stable ABI" ON)
++option(PYTHON_USE_SABI "Use Python stable ABI" OFF)
  
  option(ENABLE_WERROR "Turn on -Werror" OFF)
  option(TEST_HEAD3 "Run tests on Head 3" OFF)
 diff --git a/wrapping/python/CMakeLists.txt b/wrapping/python/CMakeLists.txt
-index 4e89b3fb..5a2b73cb 100644
+index 4e89b3fb..84c1d1fa 100644
 --- a/wrapping/python/CMakeLists.txt
 +++ b/wrapping/python/CMakeLists.txt
 @@ -6,7 +6,6 @@
@@ -45,21 +45,25 @@ index 4e89b3fb..5a2b73cb 100644
  
  # This puts __openmeeg.so in openmeeg/
  set_target_properties(${SWIG_TARGET_NAME} PROPERTIES LIBRARY_OUTPUT_DIRECTORY openmeeg/)
-@@ -78,10 +84,10 @@ else()
+@@ -78,10 +84,14 @@ else()
      message("Python default suffix ${Python3_EXT_SUFFIX}")
  endif()
  
 -if (APPLE)
 -    swig_link_libraries(${SWIG_TARGET_NAME} OpenMEEG::OpenMEEG)
 +if(WIN32)
-+    target_link_libraries(${SWIG_TARGET_NAME} ${Python3_SABI_LIBRARIES} OpenMEEG::OpenMEEG)
++    if (PYTHON_USE_SABI)
++        target_link_libraries(${SWIG_TARGET_NAME} ${Python3_SABI_LIBRARIES} OpenMEEG::OpenMEEG)
++    else()
++        target_link_libraries(${SWIG_TARGET_NAME} ${Python3_LIBRARIES} OpenMEEG::OpenMEEG)
++    endif()
  else()
 -    swig_link_libraries(${SWIG_TARGET_NAME} ${Python3_LIBRARIES} OpenMEEG::OpenMEEG)
 +    target_link_libraries(${SWIG_TARGET_NAME} OpenMEEG::OpenMEEG)
  endif()
  
  set(PYTHON_SITE_ARCH ${Python3_SITEARCH})
-@@ -116,7 +122,7 @@ add_custom_command(
+@@ -116,7 +126,7 @@ add_custom_command(
  # to properly detect and use .git_archival.txt
  
  execute_process(COMMAND ${Python3_EXECUTABLE} -m setuptools_scm -c wrapping/python/pyproject.toml
@@ -68,7 +72,7 @@ index 4e89b3fb..5a2b73cb 100644
                  OUTPUT_VARIABLE PYTHON_OPENMEEG_VERSION
                  OUTPUT_STRIP_TRAILING_WHITESPACE
                  COMMAND_ERROR_IS_FATAL LAST)
-@@ -127,7 +133,7 @@ add_custom_command(
+@@ -127,7 +137,7 @@ add_custom_command(
      TARGET ${SWIG_TARGET_NAME} PRE_BUILD
      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
      COMMAND ${CMAKE_COMMAND} -E env SETUPTOOLS_SCM_PRETEND_VERSION=${PYTHON_OPENMEEG_VERSION} PYTHON=${Python3_EXECUTABLE}
