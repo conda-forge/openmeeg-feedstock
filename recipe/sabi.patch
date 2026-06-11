@@ -1,18 +1,14 @@
 diff --git a/wrapping/python/CMakeLists.txt b/wrapping/python/CMakeLists.txt
-index 4e89b3fb..056fa89e 100644
+index 4e89b3fb..7fde0eb2 100644
 --- a/wrapping/python/CMakeLists.txt
 +++ b/wrapping/python/CMakeLists.txt
-@@ -15,7 +15,13 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.27")
+@@ -15,7 +15,8 @@ if (CMAKE_VERSION VERSION_GREATER_EQUAL "3.27")
      cmake_policy(SET CMP0148 NEW)  # fail FindPythonInterp / FindPythonLibs
  endif()
  
-+option (USE_PYTHON_SABI "Use Python stable ABI" OFF)
-+if (USE_PYTHON_SABI)
-+find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy Development.SABIModule)
+-find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy)
++find_package(Python 3 REQUIRED COMPONENTS Interpreter NumPy Development.SABIModule)
 +add_library (Python::Module ALIAS Python::SABIModule)
-+else ()
- find_package(Python3 REQUIRED COMPONENTS Interpreter NumPy)
-+endif()
  
  if (BUILD_TESTING)
      find_package(Pytest)
