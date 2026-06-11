@@ -17,12 +17,12 @@ EXT_SUFFIX=".abi3.so"
 # https://conda-forge.org/docs/how-to/advanced/cross-compilation/#finding-numpy-in-cross-compiled-python-packages-using-cmake
 Python_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')"
 Python_NumPy_INCLUDE_DIR="$(python -c 'import numpy; print(numpy.get_include())')"
+export CXXFLAGS="${CXXFLAGS} -DPy_LIMITED_API=0x030A0000"
 echo "Running CMAKE"
 cmake -GNinja \
       ${CMAKE_ARGS} \
       -DBLA_VENDOR:STRING=OpenBLAS \
       -DENABLE_PYTHON:BOOL=ON \
-      -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000" \
       -DUSE_PYTHON_SABI=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
