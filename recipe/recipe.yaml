@@ -16,10 +16,9 @@ source:
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
   number: ${{ build_number }}
-  # abi3 not working on Windows for some reason (see https://github.com/conda-forge/openmeeg-feedstock/pull/77)
   python:
-    version_independent: ${{ is_abi3 and not win }}
-  skip: is_abi3 and not win and not is_python_min
+    version_independent: is_abi3
+  skip: is_abi3 and not is_python_min
 
 requirements:
   build:
@@ -42,7 +41,7 @@ requirements:
 
   host:
     - python
-    - if: is_abi3 and not win
+    - if: is_abi3
       then: python-abi3
     - numpy
     - openblas
@@ -63,7 +62,7 @@ tests:
       imports:
         - openmeeg
       python_version:
-        - if: is_abi3 and not win
+        - if: is_abi3
           then: ${{ python_min }}.*
         - "*"
   - requirements:
@@ -73,7 +72,7 @@ tests:
           else: pytest <8
         - packaging
         - pip
-        - if: is_abi3 and not win
+        - if: is_abi3
           then: abi3audit
     script:
       - om_minverser --help
@@ -81,10 +80,10 @@ tests:
         then:
           - ls $SP_DIR/openmeeg/_openmeeg.*
           - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-      # - if: win and is_abi3
-      #   then:
-      #     - dir %SP_DIR%\openmeeg\_openmeeg.*
-      #     - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+      - if: win and is_abi3
+        then:
+          - dir %SP_DIR%\openmeeg\_openmeeg.*
+          - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
