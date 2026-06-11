@@ -4,9 +4,7 @@ context:
   version: "2.5.16"
   build_number: 2
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
-  # abi3 not working on Windows for some reason. Once it does, can remove this and
-  # replace instances of "do_abi3" with "is_abi3"
-  do_abi3: is_abi3 and not win
+  # abi3 not working on Windows for some reason
 
 package:
   name: ${{ name }}
@@ -20,8 +18,8 @@ source:
 build:
   number: ${{ build_number }}
   python:
-    version_independent: ${{ do_abi3 }}
-  skip: python<${{ python_min }} or (do_abi3 and not match(python, "${{ python_min }}.*"))
+    version_independent: ${{ is_abi3 and not win }}
+  skip: python<${{ python_min }} or (is_abi3 and not win and not match(python, "${{ python_min }}.*"))
 
 requirements:
   build:
@@ -44,7 +42,7 @@ requirements:
 
   host:
     - python
-    - if: do_abi3
+    - if: is_abi3 and not win
       then: python-abi3
     - numpy
     - openblas
@@ -65,7 +63,7 @@ tests:
       imports:
         - openmeeg
       python_version:
-        - if: do_abi3
+        - if: is_abi3 and not win
           then: ${{ python_min }}.*
         - "*"  # TODO: REENABLE!
   - requirements:
@@ -75,18 +73,18 @@ tests:
           else: pytest <8
         - packaging
         - pip
-        - if: do_abi3
+        - if: is_abi3 and not win
           then: abi3audit
     script:
       - om_minverser --help
-      - if: unix and do_abi3
+      - if: unix and is_abi3
         then:
           - ls $SP_DIR/openmeeg/_openmeeg.*
           - abi3audit $SP_DIR/openmeeg/_openmeeg.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-      - if: win and do_abi3
-        then:
-          - dir %SP_DIR%\openmeeg\_openmeeg.*
-          - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+      # - if: win and is_abi3
+      #   then:
+      #     - dir %SP_DIR%\openmeeg\_openmeeg.*
+      #     - abi3audit %SP_DIR%/openmeeg/_openmeeg.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
