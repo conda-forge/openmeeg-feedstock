@@ -22,7 +22,8 @@ cmake -GNinja \
       ${CMAKE_ARGS} \
       -DBLA_VENDOR:STRING=OpenBLAS \
       -DENABLE_PYTHON:BOOL=ON \
-      -DSWIG_COMPILE_FLAGS="-DPy_LIMITED_API=0x030A0000" -DUSE_PYTHON_SABI=ON \
+      -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000" \
+      -DUSE_PYTHON_SABI=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
       -DPython3_NumPy_INCLUDE_DIR=${Python_NumPy_INCLUDE_DIR} \
@@ -35,4 +36,4 @@ cmake -GNinja \
       -DCMAKE_INSTALL_LIBDIR=lib \
       $SRC_DIR
 
-cmake --build . --target install --config RELEASE
+cmake --build . --target install --config RELEASE --parallel ${CPU_COUNT}

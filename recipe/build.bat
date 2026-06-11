@@ -34,7 +34,7 @@ cmake -B . ^
       -DCMAKE_BUILD_TYPE:STRING=RELEASE ^
       -DBLA_VENDOR:STRING=OpenBLAS ^
       -DCMAKE_CXX_FLAGS="-DPy_LIMITED_API=0x030A0000 /LIBPATH:!PYTHON_SABI_LIBRARY_DIR! -I!LIBRARY_INC!\openblas" ^
-      -DSWIG_COMPILE_FLAGS="/DPy_LIMITED_API=0x030A0000" -DUSE_PYTHON_SABI=ON ^
+      -DUSE_PYTHON_SABI=ON ^
       -DENABLE_PYTHON:BOOL=ON ^
       -DPython3_EXECUTABLE=%PYTHON% ^
       -DPython3_EXT_SUFFIX=%EXT_SUFFIX% ^
@@ -52,7 +52,7 @@ cmake -B . ^
       "%SRC_DIR%"
 if errorlevel 1 exit 1
 
-cmake --build . --target install --config RELEASE
+cmake --build . --target install --config RELEASE --parallel %CPU_COUNT%
 if errorlevel 1 exit 1
 
 popd
