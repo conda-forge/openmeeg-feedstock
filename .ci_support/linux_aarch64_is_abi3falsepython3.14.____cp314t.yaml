@@ -11,11 +11,11 @@ cxx_compiler:
 cxx_compiler_version:
 - '14'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma9
+- quay.io/condaforge/linux-anvil-x86_64:alma10
 is_abi3:
-- true
+- false
 is_python_min:
-- true
+- false
 libmatio:
 - 1.5.30
 numpy:
@@ -27,11 +27,12 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.14.* *_cp314t
 python_min:
 - '3.10'
 target_platform:
-- linux-ppc64le
+- linux-aarch64
 zip_keys:
 - - python
   - is_python_min
+  - is_abi3
