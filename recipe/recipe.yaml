@@ -2,7 +2,7 @@ schema_version: 1
 context:
   name: "openmeeg"
   version: "2.5.16"
-  build_number: 3
+  build_number: 4
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
 
 package:
@@ -14,6 +14,8 @@ source:
   sha256: ${{ sha256 }}
   patches:
     - sabi.patch
+    - cmake44.patch  # backport of #849 for CMake 4.4, remove on next release
+    - swig45.patch  # backport of #878 for SWIG 4.5, remove on next release
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:

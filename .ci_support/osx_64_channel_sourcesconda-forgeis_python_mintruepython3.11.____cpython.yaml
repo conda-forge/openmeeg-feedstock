@@ -13,7 +13,7 @@ channel_targets:
 cxx_compiler:
 - clangxx
 cxx_compiler_version:
-- '19'
+- '21'
 is_abi3:
 - true
 is_python_min:
@@ -21,7 +21,7 @@ is_python_min:
 libmatio:
 - 1.5.30
 llvm_openmp:
-- '19'
+- '21'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 numpy:
@@ -33,11 +33,12 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.10.* *_cpython
+- 3.11.* *_cpython
 python_min:
-- '3.10'
+- '3.11'
 target_platform:
 - osx-64
 zip_keys:
 - - python
   - is_python_min
+  - channel_sources
