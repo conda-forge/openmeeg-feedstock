@@ -2,7 +2,7 @@ schema_version: 1
 context:
   name: "openmeeg"
   version: "2.5.16"
-  build_number: 3
+  build_number: 4
   sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
 
 package:
