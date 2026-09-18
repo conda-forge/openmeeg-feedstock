@@ -14,6 +14,7 @@ source:
   sha256: ${{ sha256 }}
   patches:
     - sabi.patch
+    - cmake44.patch  # backport of #849 for CMake 4.4, remove on next release
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
