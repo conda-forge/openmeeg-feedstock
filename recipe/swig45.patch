@@ -1,0 +1,13 @@
+diff --git a/wrapping/python/openmeeg/_openmeeg.i b/wrapping/python/openmeeg/_openmeeg.i
+index acdcfcd..88daa4e 100644
+--- a/wrapping/python/openmeeg/_openmeeg.i
++++ b/wrapping/python/openmeeg/_openmeeg.i
+@@ -378,7 +378,7 @@ namespace OpenMEEG {
+     // C++ -> Python
+ 
+     %typemap(out) unsigned& {
+-        $result = PyInt_FromLong(*($1));
++        $result = PyLong_FromLong(*($1));
+     }
+ }
+ 

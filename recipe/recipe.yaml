@@ -15,6 +15,7 @@ source:
   patches:
     - sabi.patch
     - cmake44.patch  # backport of #849 for CMake 4.4, remove on next release
+    - swig45.patch  # backport of #878 for SWIG 4.5, remove on next release
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
