@@ -48,7 +48,12 @@ requirements:
     - if: is_abi3
       then: python-abi3
     - numpy
-    - openblas
+    # Link against the generic BLAS/LAPACK interfaces so that users can switch
+    # the backend, e.g. conda install "libblas=*=*_mkl"
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
     - libmatio
     - setuptools >=68.0.0
     - setuptools_scm >=6.2
@@ -58,7 +63,6 @@ requirements:
     - python
     - if: win
       then: ucrt
-    - libopenblas
     - libmatio
 
 tests:

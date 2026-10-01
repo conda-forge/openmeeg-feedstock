@@ -20,7 +20,7 @@ Python_NumPy_INCLUDE_DIR="$(python -c 'import numpy; print(numpy.get_include())'
 echo "Running CMAKE"
 cmake -GNinja \
       ${CMAKE_ARGS} \
-      -DBLA_VENDOR:STRING=OpenBLAS \
+      -DBLA_IMPLEMENTATION:STRING=Generic \
       -DENABLE_PYTHON:BOOL=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
