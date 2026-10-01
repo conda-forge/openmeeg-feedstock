@@ -3,19 +3,14 @@ context:
   name: "openmeeg"
   version: "2.6.0"
   build_number: 0
-  # TODO: Until 2.6.0 is released this is a commit on the generic-blas branch.
-  # Afterward drop it, and update the sha256 for the release tarball.
-  commit: 88b5c39979d0f974eb1c3d56dc58b81cf8f8822b
-  sha256: 6ce9da09be7ba623bf2a6abcaf60cdcae62d0f3cca6c20a474a84aefb8576c19
+  sha256: 9f19fdf35e30fdad7a0e8958e8c90a58b22d23c0542bf95978a8e9408d5e41cb
 
 package:
   name: ${{ name }}
   version: ${{ version }}
 
 source:
-  # TODO: After 2.6.0 is released, switch back to the release tarball:
-  # url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
-  url: https://github.com/larsoner/${{ name }}/archive/${{ commit }}.tar.gz
+  url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
   sha256: ${{ sha256 }}
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
