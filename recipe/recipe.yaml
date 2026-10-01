@@ -1,21 +1,22 @@
 schema_version: 1
 context:
   name: "openmeeg"
-  version: "2.5.16"
-  build_number: 4
-  sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
+  version: "2.6.0"
+  build_number: 0
+  # TODO: Until 2.6.0 is released this is a commit on the generic-blas branch.
+  # Afterward drop it, and update the sha256 for the release tarball.
+  commit: 88b5c39979d0f974eb1c3d56dc58b81cf8f8822b
+  sha256: 6ce9da09be7ba623bf2a6abcaf60cdcae62d0f3cca6c20a474a84aefb8576c19
 
 package:
   name: ${{ name }}
   version: ${{ version }}
 
 source:
-  url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
+  # TODO: After 2.6.0 is released, switch back to the release tarball:
+  # url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
+  url: https://github.com/larsoner/${{ name }}/archive/${{ commit }}.tar.gz
   sha256: ${{ sha256 }}
-  patches:
-    - sabi.patch
-    - cmake44.patch  # backport of #849 for CMake 4.4, remove on next release
-    - swig45.patch  # backport of #878 for SWIG 4.5, remove on next release
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
@@ -23,6 +24,12 @@ build:
   python:
     version_independent: ${{ is_abi3 }}
   skip: is_abi3 and not is_python_min
+  script:
+    file: build
+    env:
+      # One stable ABI build covers all regular Pythons, but free-threaded ones
+      # have no stable ABI and get their own builds
+      PYTHON_USE_SABI: ${{ "ON" if is_abi3 else "OFF" }}
 
 requirements:
   build:
@@ -99,6 +106,23 @@ tests:
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
+  # Functional tests, which need the data from the source tree. On macOS use
+  # Accelerate, the fastest implementation there; elsewhere the default one.
+  - files:
+      source:
+        - data/
+    requirements:
+      run:
+        - if: not win
+          then: pytest
+          else: pytest <8
+        - if: osx
+          then: libblas * *_newaccelerate
+    script:
+      env:
+        OPENMEEG_DATA_PATH: data
+      content:
+        - pytest --pyargs openmeeg -m "not slow" -v
 
 about:
   homepage: https://openmeeg.github.io/
