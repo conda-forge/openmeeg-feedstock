@@ -8,11 +8,12 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=$PKG_VERSION
 BUILD_DIR=build
 mkdir -p $BUILD_DIR && cd $BUILD_DIR
 
-# EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
-EXT_SUFFIX=".abi3.so"
-# Linux: _openmeeg.abi3.so
-# macOS: _openmeeg.abi3.so
-# Windows: _openmeeg.pyd
+# _openmeeg.abi3.so, or e.g. _openmeeg.cpython-314t-darwin.so when free-threaded
+if [[ "$PYTHON_USE_SABI" == "ON" ]]; then
+    EXT_SUFFIX=".abi3.so"
+else
+    EXT_SUFFIX=$(python -c "import sysconfig;print(sysconfig.get_config_var('EXT_SUFFIX'))")
+fi
 
 # https://conda-forge.org/docs/how-to/advanced/cross-compilation/#finding-numpy-in-cross-compiled-python-packages-using-cmake
 Python_INCLUDE_DIR="$(python -c 'import sysconfig; print(sysconfig.get_path("include"))')"
@@ -20,7 +21,7 @@ Python_NumPy_INCLUDE_DIR="$(python -c 'import numpy; print(numpy.get_include())'
 echo "Running CMAKE"
 cmake -GNinja \
       ${CMAKE_ARGS} \
-      -DBLA_VENDOR:STRING=OpenBLAS \
+      -DBLA_IMPLEMENTATION:STRING=Generic \
       -DENABLE_PYTHON:BOOL=ON \
       -DPython3_EXECUTABLE="$PYTHON" \
       -DPython3_INCLUDE_DIR:PATH=${Python_INCLUDE_DIR} \
@@ -28,8 +29,9 @@ cmake -GNinja \
       -DPython3_EXT_SUFFIX=$EXT_SUFFIX \
       -DPYTHON_FORCE_EXT_SUFFIX=ON \
       -DPYTHON_INSTALL_RELATIVE=OFF \
-      -DPYTHON_USE_SABI:BOOL=ON \
+      -DPYTHON_USE_SABI:BOOL=$PYTHON_USE_SABI \
       -DCMAKE_BUILD_TYPE:STRING=RELEASE \
+      -DOPENMEEG_VERSION=$PKG_VERSION \
       -DBUILD_DOCUMENTATION:BOOL=OFF \
       -DCMAKE_INSTALL_PREFIX=$PREFIX \
       -DCMAKE_INSTALL_LIBDIR=lib \

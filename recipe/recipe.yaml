@@ -1,9 +1,9 @@
 schema_version: 1
 context:
   name: "openmeeg"
-  version: "2.5.16"
-  build_number: 4
-  sha256: 29485a732e3555425889cfd28474fccd2b3e76b51bb694fc83d86ca052e70884
+  version: "2.6.0"
+  build_number: 0
+  sha256: 9f19fdf35e30fdad7a0e8958e8c90a58b22d23c0542bf95978a8e9408d5e41cb
 
 package:
   name: ${{ name }}
@@ -12,10 +12,6 @@ package:
 source:
   url: https://github.com/${{ name }}/${{ name }}/archive/${{ version }}.tar.gz
   sha256: ${{ sha256 }}
-  patches:
-    - sabi.patch
-    - cmake44.patch  # backport of #849 for CMake 4.4, remove on next release
-    - swig45.patch  # backport of #878 for SWIG 4.5, remove on next release
 
 # https://conda-forge.org/docs/maintainer/knowledge_base.html
 build:
@@ -23,6 +19,12 @@ build:
   python:
     version_independent: ${{ is_abi3 }}
   skip: is_abi3 and not is_python_min
+  script:
+    file: build
+    env:
+      # One stable ABI build covers all regular Pythons, but free-threaded ones
+      # have no stable ABI and get their own builds
+      PYTHON_USE_SABI: ${{ "ON" if is_abi3 else "OFF" }}
 
 requirements:
   build:
@@ -48,7 +50,12 @@ requirements:
     - if: is_abi3
       then: python-abi3
     - numpy
-    - openblas
+    # Link against the generic BLAS/LAPACK interfaces so that users can switch
+    # the backend, e.g. conda install "libblas=*=*_mkl"
+    - libblas
+    - libcblas
+    - liblapack
+    - liblapacke
     - libmatio
     - setuptools >=68.0.0
     - setuptools_scm >=6.2
@@ -58,7 +65,6 @@ requirements:
     - python
     - if: win
       then: ucrt
-    - libopenblas
     - libmatio
 
 tests:
@@ -95,6 +101,23 @@ tests:
       - python -c "import faulthandler; faulthandler.enable(); import warnings; warnings.simplefilter('error'); from packaging.version import parse; import openmeeg; print(openmeeg.__version__); assert parse(openmeeg.__version__) == parse('${{ version }}'), openmeeg.__version__"
       - pip check
       - pip show openmeeg
+  # Functional tests, which need the data from the source tree. On macOS use
+  # Accelerate, the fastest implementation there; elsewhere the default one.
+  - files:
+      source:
+        - data/
+    requirements:
+      run:
+        - if: not win
+          then: pytest
+          else: pytest <8
+        - if: osx
+          then: libblas * *_newaccelerate
+    script:
+      env:
+        OPENMEEG_DATA_PATH: data
+      content:
+        - pytest --pyargs openmeeg -m "not slow" -v
 
 about:
   homepage: https://openmeeg.github.io/
