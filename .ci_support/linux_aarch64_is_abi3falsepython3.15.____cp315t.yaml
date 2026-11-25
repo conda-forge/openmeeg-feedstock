@@ -1,3 +1,5 @@
+DOCKER_PLATFORM:
+- linux/aarch64
 c_stdlib:
 - sysroot
 c_stdlib_version:
@@ -11,11 +13,11 @@ cxx_compiler:
 cxx_compiler_version:
 - '15'
 docker_image:
-- quay.io/condaforge/linux-anvil-x86_64:alma10
+- quay.io/condaforge/linux-anvil-aarch64:alma10
 is_abi3:
-- true
+- false
 is_python_min:
-- true
+- false
 libblas:
 - 3.9.* *netlib
 libcblas:
@@ -33,13 +35,12 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.11.* *_cpython
+- 3.15.* *_cp315t
 python_min:
 - '3.11'
 target_platform:
-- linux-64
+- linux-aarch64
 zip_keys:
 - - python
   - is_python_min
-  - channel_sources
   - is_abi3
